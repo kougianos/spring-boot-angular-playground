@@ -1,3 +1,12 @@
 spring:
   application:
     name: starter
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'} %clr(%5p) [%thread] %clr(%logger{40}){cyan} : %msg%n"
+  timezone: UTC
+  level:
+    root: INFO
+  ansi:
+    enabled: ALWAYS
