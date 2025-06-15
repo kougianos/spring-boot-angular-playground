@@ -24,17 +24,6 @@ export class AuthGuard {
             return false;
         }
 
-        // Check if we already have a user in the current user subject
-        let userAvailable = false;
-        this.authService.currentUser$.subscribe(user => {
-            userAvailable = !!user;
-        });
-
-        // If user is already loaded, just return true
-        if (userAvailable) {
-            return true;
-        }
-
         // If we have a token but no user yet, try to load the user profile
         return this.authService.fetchUserProfile().pipe(
             map(() => true),
