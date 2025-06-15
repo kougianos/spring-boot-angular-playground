@@ -28,6 +28,13 @@ spring:
     template:
       default-topic: test-topic
 
+# JWT Configuration
+app:
+  jwt:
+    secret: RGV2ZWxvcG1lbnRTZWNyZXRLZXlGb3JKV1RUb2tlbkdlbmVyYXRpb25Eb05vdFVzZUluUHJvZHVjdGlvbg==
+    # Token expiration time (24 hours in milliseconds)
+    expiration: 86400000
+
 logging:
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'} %clr(%5p) [%thread] %clr(%logger{40}){cyan} : %msg%n"
