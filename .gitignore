@@ -1,8 +1,25 @@
 HELP.md
+
+### Spring Boot ###
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### Angular ###
+# Compiled output
+angular/dist/
+angular/tmp/
+angular/out-tsc/
+angular/bazel-out/
+
+# Node
+angular/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Angular Cache
+angular/.angular/
 
 ### STS ###
 .apt_generated
@@ -31,3 +48,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Misc ###
+.DS_Store
+Thumbs.db

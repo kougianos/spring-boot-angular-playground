@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-card class="auth-card">
+    <div class="auth-card-header">
+      <h1>Login</h1>
+    </div>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username or Email</mat-label>
+        <input matInput formControlName="usernameOrEmail" required>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="loginForm.get('usernameOrEmail')?.errors?.['required']">
+          Username or email is required
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+      
+      <div class="action-buttons">
+        <button mat-stroked-button type="button" routerLink="/register">Register</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading">
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+          <span *ngIf="!loading">Login</span>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>Spring Boot Angular Playground</span>
+  <span class="spacer"></span>
+  <ng-container *ngIf="currentUser">
+    <span class="username">{{ currentUser.username }}</span>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </ng-container>
+</mat-toolbar>
