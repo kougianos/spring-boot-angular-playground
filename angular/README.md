@@ -4,7 +4,6 @@ This is the Angular frontend for the Spring Boot Angular Playground application.
 
 ## Features
 
-- Splash screen on application startup
 - JWT-based authentication
 - Login and registration forms with validation
 - Protected routes using auth guards
@@ -52,7 +51,6 @@ The build artifacts will be stored in the `dist/angular` directory.
 - `src/app/core`: Core functionality (services, interceptors, guards)
 - `src/app/home`: Home page component
 - `src/app/shared`: Shared components (header)
-- `src/app/splash-screen`: Initial splash screen
 
 ## API Integration
 

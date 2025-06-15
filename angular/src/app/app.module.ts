@@ -20,19 +20,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
-import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { HeaderComponent } from './shared/header/header.component';
 
 // Services and Interceptors
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
-@NgModule({
-  declarations: [
+@NgModule({  declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    SplashScreenComponent,
     HeaderComponent
   ],
   imports: [
