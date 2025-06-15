@@ -22,7 +22,7 @@ public class InfraHealthChecker implements InitializingBean {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @KafkaListener(topics = KAFKA_TEST_TOPIC, groupId = "infrastructure-checker")
-    public void receiveKafkaMessage(String message) {
+    public void receiveTestKafkaMessage(String message) {
         if (message.equals(testMessage)) {
             log.info("[infra-check] ✅ Kafka connection successful. Test message sent and received from topic: {}, " +
                     "message: {}",
@@ -37,7 +37,7 @@ public class InfraHealthChecker implements InitializingBean {
     public void afterPropertiesSet() {
         checkMongoConnection();
         checkRedisConnection();
-        checkKafkaConnection();
+        sendKafkaMessage();
     }
 
     private void checkMongoConnection() {
@@ -61,7 +61,7 @@ public class InfraHealthChecker implements InitializingBean {
         redisTemplate.delete(testKey);
     }
 
-    private void checkKafkaConnection() {
+    private void sendKafkaMessage() {
         testMessage = "Test message at " + System.currentTimeMillis();
         log.info("[infra-check] Sending Kafka test message: {}", testMessage);
         kafkaTemplate.send(KAFKA_TEST_TOPIC, testMessage);
