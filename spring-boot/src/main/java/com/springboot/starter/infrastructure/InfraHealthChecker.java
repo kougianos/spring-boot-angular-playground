@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class InfrastructureChecker implements InitializingBean {
+public class InfraHealthChecker implements InitializingBean {
 
     private static final String KAFKA_TEST_TOPIC = "test-topic";
     private String testMessage;
