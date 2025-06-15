@@ -15,29 +15,30 @@ export class LoginComponent implements OnInit {
   returnUrl: string = '/home';
   hidePassword = true;
   error: string = '';
-
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService,
-    private snackBar: MatSnackBar
+    private readonly formBuilder: FormBuilder,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly snackBar: MatSnackBar
   ) {
-    // Redirect to home if already logged in
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
 
     this.loginForm = this.formBuilder.group({
       usernameOrEmail: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
-
   ngOnInit(): void {
+    // Redirect to home if already logged in
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+      return;
+    }
+
     // Get return url from route parameters or default to '/home'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/home';
   }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       return;

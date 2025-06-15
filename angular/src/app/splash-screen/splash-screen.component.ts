@@ -8,10 +8,9 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./splash-screen.component.scss']
 })
 export class SplashScreenComponent implements OnInit {
-  
-  constructor(
-    private router: Router,
-    private authService: AuthService
+    constructor(
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) { }
 
   ngOnInit(): void {

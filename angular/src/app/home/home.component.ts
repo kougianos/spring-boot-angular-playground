@@ -9,10 +9,9 @@ import { AuthService, UserInfo } from '../core/services/auth.service';
 })
 export class HomeComponent implements OnInit {
   currentUser: UserInfo | null = null;
-  
-  constructor(
-    private authService: AuthService,
-    private router: Router
+    constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) { }
   ngOnInit(): void {
     // First check if we're logged in
@@ -26,7 +25,7 @@ export class HomeComponent implements OnInit {
       this.currentUser = user;
       
       // Only redirect if we've actually tried to load the user and failed
-      if (user === null && this.authService.isLoggedIn() === false) {
+      if (user === null && !this.authService.isLoggedIn()) {
         this.router.navigate(['/login']);
       }
     });

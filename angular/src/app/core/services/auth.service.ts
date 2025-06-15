@@ -32,11 +32,11 @@ export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly TOKEN_TYPE_KEY = 'auth_token_type';
   
-  private currentUserSubject: BehaviorSubject<UserInfo | null>;
+  private readonly currentUserSubject: BehaviorSubject<UserInfo | null>;
   public currentUser$: Observable<UserInfo | null>;
-  private apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
     const currentUser = this.getUserFromStorage();
     this.currentUserSubject = new BehaviorSubject<UserInfo | null>(currentUser);
     this.currentUser$ = this.currentUserSubject.asObservable();
@@ -89,9 +89,8 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
-
   getTokenType(): string {
-    return localStorage.getItem(this.TOKEN_TYPE_KEY) || 'Bearer';
+    return localStorage.getItem(this.TOKEN_TYPE_KEY) ?? 'Bearer';
   }
 
   private storeToken(authResult: JwtResponse): void {
@@ -108,10 +107,9 @@ export class AuthService {
     try {
       // Try to extract user info from JWT token
       // This is a simplified approach
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return {
-        username: payload.sub || '',
-        email: payload.email || ''
+      const payload = JSON.parse(atob(token.split('.')[1]));      return {
+        username: payload.sub ?? '',
+        email: payload.email ?? ''
       };
     } catch (e) {
       console.error('Failed to decode token', e);
