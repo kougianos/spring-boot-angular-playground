@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,40 @@ public class TestDocumentService {
             savedDocument.getBooleanFlag(),
             savedDocument.getTextField(),
             savedDocument.getNumberField()
+        );
+    }
+    
+    public List<TestDocumentResponse> getAllTestDocuments() {
+        return testDocumentRepository.findAll().stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+    
+    public TestDocumentResponse updateTestDocument(String id, TestDocumentRequest request) {
+        TestDocument existingDocument = testDocumentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Test document not found with id: " + id));
+
+        LocalDateTime now = LocalDateTime.now();
+        
+        existingDocument.setDateUpdated(now);
+        existingDocument.setBooleanFlag(request.booleanFlag());
+        existingDocument.setTextField(request.textField());
+        existingDocument.setNumberField(request.numberField());
+        
+        TestDocument updatedDocument = testDocumentRepository.save(existingDocument);
+        
+        return mapToResponse(updatedDocument);
+    }
+    
+    private TestDocumentResponse mapToResponse(TestDocument document) {
+        return new TestDocumentResponse(
+            document.getId(),
+            document.getDateCreated(),
+            document.getDateUpdated(),
+            document.getCreator(),
+            document.getBooleanFlag(),
+            document.getTextField(),
+            document.getNumberField()
         );
     }
 }

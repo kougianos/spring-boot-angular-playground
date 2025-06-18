@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -55,5 +57,21 @@ public class ApiController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         TestDocumentResponse response = testDocumentService.createTestDocument(request, userDetails.getUsername());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+    
+    @GetMapping("/test-documents")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<TestDocumentResponse>> getAllTestDocuments() {
+        List<TestDocumentResponse> documents = testDocumentService.getAllTestDocuments();
+        return ResponseEntity.ok(documents);
+    }
+    
+    @PutMapping("/test-documents/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<TestDocumentResponse> updateTestDocument(
+            @PathVariable String id,
+            @RequestBody TestDocumentRequest request) {
+        TestDocumentResponse updatedDocument = testDocumentService.updateTestDocument(id, request);
+        return ResponseEntity.ok(updatedDocument);
     }
 }
