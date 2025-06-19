@@ -63,6 +63,13 @@ public class TestDocumentService {
         return mapToResponse(updatedDocument);
     }
     
+    public void deleteTestDocument(String id) {
+        if (!testDocumentRepository.existsById(id)) {
+            throw new IllegalArgumentException("Test document not found with id: " + id);
+        }
+        testDocumentRepository.deleteById(id);
+    }
+    
     private TestDocumentResponse mapToResponse(TestDocument document) {
         return new TestDocumentResponse(
             document.getId(),

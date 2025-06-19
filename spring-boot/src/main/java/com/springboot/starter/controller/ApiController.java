@@ -74,4 +74,11 @@ public class ApiController {
         TestDocumentResponse updatedDocument = testDocumentService.updateTestDocument(id, request);
         return ResponseEntity.ok(updatedDocument);
     }
+
+    @DeleteMapping("/test-documents/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteTestDocument(@PathVariable String id) {
+        testDocumentService.deleteTestDocument(id);
+        return ResponseEntity.noContent().build();
+    }
 }
