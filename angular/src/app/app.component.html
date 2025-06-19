@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <app-header 
+    [currentUser]="currentUser"
+    (logoutEvent)="onLogout()">
+  </app-header>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

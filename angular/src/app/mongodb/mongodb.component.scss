@@ -1,0 +1,23 @@
+.mongodb-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  h1 {
+    color: #3f51b5;
+    margin-bottom: 20px;
+  }
+  
+  .content-placeholder {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+  }
+}
