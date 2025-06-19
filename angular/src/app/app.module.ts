@@ -20,6 +20,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 // App Components
 import {AppRoutingModule} from './app-routing.module';
@@ -63,7 +66,10 @@ import {MongodbComponent} from './mongodb/mongodb.component';
         MatChipsModule,
         MatSelectModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatDialogModule,
+        MatSlideToggleModule,
+        MatTooltipModule
     ],
     providers: [
         {

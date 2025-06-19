@@ -13,6 +13,12 @@ export interface TestDocument {
   numberField: number;
 }
 
+export interface TestDocumentRequest {
+  booleanFlag: boolean;
+  textField: string;
+  numberField: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,16 +31,15 @@ export class MongodbService {
     return this.http.get<TestDocument[]>(this.apiUrl);
   }
 
-  // Additional CRUD methods to be implemented later
-  // createTestDocument(document: any): Observable<TestDocument> {
-  //   return this.http.post<TestDocument>(this.apiUrl, document);
-  // }
+  createTestDocument(document: TestDocumentRequest): Observable<TestDocument> {
+    return this.http.post<TestDocument>(this.apiUrl, document);
+  }
   
-  // updateTestDocument(id: string, document: any): Observable<TestDocument> {
-  //   return this.http.put<TestDocument>(`${this.apiUrl}/${id}`, document);
-  // }
+  updateTestDocument(id: string, document: TestDocumentRequest): Observable<TestDocument> {
+    return this.http.put<TestDocument>(`${this.apiUrl}/${id}`, document);
+  }
   
-  // deleteTestDocument(id: string): Observable<void> {
-  //   return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  // }
+  deleteTestDocument(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
