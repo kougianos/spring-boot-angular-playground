@@ -13,6 +13,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 // App Components
 import {AppRoutingModule} from './app-routing.module';
@@ -49,7 +56,14 @@ import {MongodbComponent} from './mongodb/mongodb.component';
         MatIconModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatChipsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [
         {
