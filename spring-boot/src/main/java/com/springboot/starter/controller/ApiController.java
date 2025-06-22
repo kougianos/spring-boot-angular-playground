@@ -6,7 +6,11 @@ import com.springboot.starter.dto.SignupRequest;
 import com.springboot.starter.dto.TestDocumentRequest;
 import com.springboot.starter.dto.TestDocumentResponse;
 import com.springboot.starter.dto.UserInfoResponse;
+import com.springboot.starter.dto.publicapi.BankHolidaysResponse;
+import com.springboot.starter.dto.publicapi.DigitalOceanStatusResponse;
+import com.springboot.starter.dto.publicapi.DisneyCharactersResponse;
 import com.springboot.starter.service.AuthService;
+import com.springboot.starter.service.PublicApiService;
 import com.springboot.starter.service.TestDocumentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +33,7 @@ public class ApiController {
 
     private final AuthService authService;
     private final TestDocumentService testDocumentService;
+    private final PublicApiService publicApiService;
 
     @PostMapping("/auth/signup")
     public ResponseEntity<Void> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
@@ -81,5 +86,23 @@ public class ApiController {
     public ResponseEntity<Void> deleteTestDocument(@PathVariable String id) {
         testDocumentService.deleteTestDocument(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/public/disney-characters")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<DisneyCharactersResponse> getDisneyCharacters() {
+        return ResponseEntity.ok(publicApiService.getDisneyCharacters());
+    }
+
+    @GetMapping("/public/digital-ocean-status")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<DigitalOceanStatusResponse> getDigitalOceanStatus() {
+        return ResponseEntity.ok(publicApiService.getDigitalOceanStatus());
+    }
+
+    @GetMapping("/public/bank-holidays")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<BankHolidaysResponse> getBankHolidays() {
+        return ResponseEntity.ok(publicApiService.getBankHolidays());
     }
 }
