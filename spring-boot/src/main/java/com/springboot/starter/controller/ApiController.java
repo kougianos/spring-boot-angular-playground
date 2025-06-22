@@ -6,9 +6,9 @@ import com.springboot.starter.dto.SignupRequest;
 import com.springboot.starter.dto.TestDocumentRequest;
 import com.springboot.starter.dto.TestDocumentResponse;
 import com.springboot.starter.dto.UserInfoResponse;
-import com.springboot.starter.dto.publicapi.BankHolidaysResponse;
 import com.springboot.starter.dto.publicapi.DigitalOceanStatusResponse;
 import com.springboot.starter.dto.publicapi.DisneyCharactersResponse;
+import com.springboot.starter.dto.publicapi.DivisionData;
 import com.springboot.starter.service.AuthService;
 import com.springboot.starter.service.PublicApiService;
 import com.springboot.starter.service.TestDocumentService;
@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -102,7 +103,7 @@ public class ApiController {
 
     @GetMapping("/public/bank-holidays")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<BankHolidaysResponse> getBankHolidays() {
+    public ResponseEntity<Map<String, DivisionData>> getBankHolidays() {
         return ResponseEntity.ok(publicApiService.getBankHolidays());
     }
 }

@@ -5,6 +5,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MongodbComponent } from './mongodb/mongodb.component';
+import { PublicApisComponent } from './public-apis/public-apis.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'mongodb', component: MongodbComponent, canActivate: [AuthGuard] },
+  { path: 'public-apis', component: PublicApisComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' }
 ];
 

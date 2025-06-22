@@ -23,6 +23,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 // App Components
 import {AppRoutingModule} from './app-routing.module';
@@ -35,6 +37,7 @@ import {HeaderComponent} from './shared/header/header.component';
 // Services and Interceptors
 import {AuthInterceptor} from './core/interceptors/auth.interceptor';
 import {MongodbComponent} from './mongodb/mongodb.component';
+import { PublicApisComponent } from './public-apis/public-apis.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +46,8 @@ import {MongodbComponent} from './mongodb/mongodb.component';
         RegisterComponent,
         HomeComponent,
         HeaderComponent,
-        MongodbComponent
+        MongodbComponent,
+        PublicApisComponent
     ],
     imports: [
         BrowserModule,
@@ -64,12 +68,13 @@ import {MongodbComponent} from './mongodb/mongodb.component';
         MatSortModule,
         MatPaginatorModule,
         MatChipsModule,
-        MatSelectModule,
-        MatDatepickerModule,
+        MatSelectModule,        MatDatepickerModule,
         MatNativeDateModule,
         MatDialogModule,
         MatSlideToggleModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDividerModule,
+        MatExpansionModule
     ],
     providers: [
         {

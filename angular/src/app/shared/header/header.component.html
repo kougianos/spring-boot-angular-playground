@@ -1,18 +1,19 @@
 <mat-toolbar color="primary">
-  <span>Spring Boot Angular Playground</span>
-  <span class="spacer"></span>
-  
-  <div class="center-nav" *ngIf="currentUser">
-    <button mat-button routerLink="/home">Home</button>
-    <button mat-button routerLink="/mongodb">MongoDB</button>
-  </div>
-  
-  <span class="spacer"></span>
-  
-  <ng-container *ngIf="currentUser">
-    <span class="username">{{ currentUser.username }}</span>
-    <button mat-icon-button (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </ng-container>
+    <span>Spring Boot Angular Playground</span>
+    <span class="spacer"></span>
+
+    <div class="center-nav" *ngIf="currentUser">
+        <button mat-button routerLink="/home">Home</button>
+        <button mat-button routerLink="/mongodb">MongoDB</button>
+        <button mat-button routerLink="/public-apis">Public APIs</button>
+    </div>
+
+    <span class="spacer"></span>
+
+    <ng-container *ngIf="currentUser">
+        <span class="username">{{ currentUser.username }}</span>
+        <button mat-icon-button (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </ng-container>
 </mat-toolbar>
