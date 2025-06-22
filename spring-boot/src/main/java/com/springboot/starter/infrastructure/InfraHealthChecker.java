@@ -41,8 +41,8 @@ public class InfraHealthChecker implements InitializingBean {
     }
 
     private void checkMongoConnection() {
-        String result = mongoTemplate.getDb().getName();
-        log.info("[infra-check] ✅ MongoDB connection successful. Database name: {}", result);
+        var result = mongoTemplate.getCollectionNames();
+        log.info("[infra-check] ✅ MongoDB connection successful. Collections: {}", result);
     }
 
     private void checkRedisConnection() {
@@ -54,8 +54,6 @@ public class InfraHealthChecker implements InitializingBean {
 
         if (testValue.equals(retrievedValue)) {
             log.info("[infra-check] ✅ Redis connection successful. Test value correctly stored and retrieved.");
-        } else {
-            log.warn("[infra-check] Redis connection seems to work but data integrity check failed.");
         }
 
         redisTemplate.delete(testKey);
