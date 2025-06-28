@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string = '/home';
   hidePassword = true;
   error: string = '';
+  infoSectionExpanded = false;
+
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute,
@@ -69,5 +71,9 @@ export class LoginComponent implements OnInit {
       panelClass: ['error-snackbar']
     });
     this.loading = false;
+  }
+
+  toggleInfoSection(): void {
+    this.infoSectionExpanded = !this.infoSectionExpanded;
   }
 }
