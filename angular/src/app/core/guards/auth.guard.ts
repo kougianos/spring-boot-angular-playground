@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {Observable, of, map, catchError} from 'rxjs';
+import {Observable, of, map, catchError, take, switchMap} from 'rxjs';
 import {AuthService} from '../services/auth.service';
 
 @Injectable({
@@ -24,12 +24,22 @@ export class AuthGuard {
             return false;
         }
 
-        // If we have a token but no user yet, try to load the user profile
-        return this.authService.fetchUserProfile().pipe(
-            map(() => true),
-            catchError(() => {
-                this.redirectToLogin(state.url);
-                return of(false);
+        // Check if we already have user data to avoid unnecessary API calls
+        return this.authService.currentUser$.pipe(
+            take(1),
+            switchMap(currentUser => {
+                if (currentUser) {
+                    // We have some user data, that's enough for authentication
+                    return of(true);
+                }
+                // No user data at all, need to fetch it for authentication
+                return this.authService.fetchUserProfile().pipe(
+                    map(() => true),
+                    catchError(() => {
+                        this.redirectToLogin(state.url);
+                        return of(false);
+                    })
+                );
             })
         );
     }

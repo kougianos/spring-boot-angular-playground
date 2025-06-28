@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Subscribe to user changes
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
 
-    if (this.authService.isLoggedIn()) {
-      this.authService.loadUserProfile();
-    }
+    // No need to manually load user profile here
+    // It will be loaded by the AuthGuard when needed, or already available from JWT token
   }
 
   onLogout(): void {

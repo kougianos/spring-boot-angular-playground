@@ -50,8 +50,24 @@ export class AuthService {
       .pipe(
         tap(response => {
           this.storeToken(response);
-          // We'll load the user profile in a different way
-          this.fetchUserProfile();
+          // Update user info from JWT token first for immediate UI update
+          const userFromToken = this.getUserFromStorage();
+          if (userFromToken) {
+            this.currentUserSubject.next(userFromToken);
+          }
+          // Only fetch complete user profile if JWT doesn't have complete info
+          // Let the home component handle the /me call to avoid duplicate requests
+          // if (!this.hasCompleteUserInfo()) {
+          //   this.isLoadingProfile = true;
+          //   this.fetchUserProfile().subscribe({
+          //     next: () => {
+          //       this.isLoadingProfile = false;
+          //     },
+          //     error: () => {
+          //       this.isLoadingProfile = false;
+          //     }
+          //   });
+          // }
         })
       );
   }
@@ -107,13 +123,24 @@ export class AuthService {
     try {
       // Try to extract user info from JWT token
       // This is a simplified approach
-      const payload = JSON.parse(atob(token.split('.')[1]));      return {
-        username: payload.sub ?? '',
-        email: payload.email ?? ''
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      
+      // Try different possible field names for email
+      const email = payload.email || payload.emailAddress || payload.mail || '';
+      const username = payload.sub || payload.username || payload.user || '';
+      
+      return {
+        username,
+        email
       };
     } catch (e) {
       console.error('Failed to decode token', e);
       return null;
     }
+  }
+
+  hasCompleteUserInfo(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return !!(currentUser && currentUser.username && currentUser.email);
   }
 }

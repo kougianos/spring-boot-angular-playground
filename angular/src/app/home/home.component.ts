@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
       return;
     }
     
-    // Then subscribe to user changes
+    // Subscribe to user changes
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       
@@ -30,8 +30,9 @@ export class HomeComponent implements OnInit {
       }
     });
     
-    // If we have a token but no user data yet, try to load the profile
-    if (this.authService.isLoggedIn() && !this.currentUser) {
+    // Check if we need to fetch user info
+    // This handles both cases: no user data at all, or user data missing email
+    if (this.authService.isLoggedIn() && !this.authService.hasCompleteUserInfo()) {
       this.authService.loadUserProfile();
     }
   }

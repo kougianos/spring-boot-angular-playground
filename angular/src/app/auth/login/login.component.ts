@@ -50,15 +50,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value)
       .subscribe({
         next: () => {
-          // After login, fetch the user profile and then navigate
-          this.authService.fetchUserProfile().subscribe({
-            next: () => {
-              this.router.navigate([this.returnUrl]);
-            },
-            error: (err) => {
-              this.handleError(err);
-            }
-          });
+          // Login successful, navigate to return URL
+          // User profile is already fetched by the login method
+          this.router.navigate([this.returnUrl]);
         },
         error: (error) => {
           this.handleError(error);
