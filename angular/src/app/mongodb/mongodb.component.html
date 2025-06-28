@@ -1,6 +1,6 @@
 <div class="mongodb-container">
   <div class="header">
-    <h1>MongoDB Dashboard</h1>
+    <h1>MongoDB CRUD Operations Demo</h1>
     <div class="spacer"></div>
     <button mat-raised-button color="primary" (click)="openCreateForm()">
       <mat-icon>add</mat-icon>
@@ -10,6 +10,65 @@
       <mat-icon>refresh</mat-icon>
       Refresh
     </button>
+  </div>
+
+  <div class="info-section">
+    <mat-card class="info-card">
+      <div class="info-header" (click)="toggleInfoSection()">
+        <div class="header-content">
+          <mat-icon>info</mat-icon>
+          <h3 class="title">About This Demo</h3>
+          <span class="subtitle">Click to learn more</span>
+        </div>
+        <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
+          expand_more
+        </mat-icon>
+      </div>
+      <div class="info-content" [class.expanded]="infoSectionExpanded">
+        <div class="content-inner">
+          <p>
+            This page demonstrates <strong>full CRUD operations</strong> (Create, Read, Update, Delete) on MongoDB documents through our full-stack architecture:
+          </p>
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <mat-icon>web</mat-icon>
+              <span>Angular Frontend</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>dns</mat-icon>
+              <span>Spring Boot Backend</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>storage</mat-icon>
+              <span>MongoDB Database</span>
+            </div>
+          </div>
+          <p>
+            You can create, view, edit, and delete documents with various data types including text, numbers, booleans, and timestamps. All operations are performed through REST API calls that persist data in MongoDB.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <mat-icon>add_circle</mat-icon>
+              <span><strong>Create:</strong> Add new documents with validation and form controls</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>visibility</mat-icon>
+              <span><strong>Read:</strong> Display documents in a sortable, interactive table</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>edit</mat-icon>
+              <span><strong>Update:</strong> Edit existing documents with pre-populated forms</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>delete</mat-icon>
+              <span><strong>Delete:</strong> Remove documents with confirmation dialogs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
   </div>
 
   <!-- Document Form -->

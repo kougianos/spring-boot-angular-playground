@@ -19,6 +19,9 @@ export class MongodbComponent implements OnInit {
   isEditing = false;
   currentDocumentId: string | null = null;
   showForm = false;
+  
+  // Info section collapsible state
+  infoSectionExpanded = false;
 
   constructor(
     private readonly mongodbService: MongodbService,
@@ -140,5 +143,9 @@ export class MongodbComponent implements OnInit {
         }
       });
     }
+  }
+
+  toggleInfoSection(): void {
+    this.infoSectionExpanded = !this.infoSectionExpanded;
   }
 }

@@ -1,3 +1,5 @@
+@import '../shared/styles/info-section.scss';
+
 .public-apis-container {
   padding: 20px;
   max-width: 1200px;
@@ -22,6 +24,13 @@ h2 {
   margin-bottom: 20px;
 }
 
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 button {
   min-width: 200px;
   margin-bottom: 10px;
@@ -44,16 +53,30 @@ button mat-spinner {
   margin-top: 20px;
 }
 
-h3 {
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
   margin-bottom: 15px;
-  color: #3f51b5;
-  text-align: center;
-}
+  transition: background-color 0.3s ease;
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  h3 {
+    margin: 0;
+    color: #3f51b5;
+  }
+
+  mat-icon {
+    color: #3f51b5;
+    transition: transform 0.3s ease;
+  }
 }
 
 mat-card {
@@ -85,4 +108,18 @@ table {
 
 mat-expansion-panel {
   margin-bottom: 10px;
+}
+
+.results-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  max-height: 2000px;
+  opacity: 1;
+
+  &.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+  }
 }

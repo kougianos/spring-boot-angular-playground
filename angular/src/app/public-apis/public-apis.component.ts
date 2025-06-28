@@ -35,6 +35,16 @@ export class PublicApisComponent {
     bankHolidays: ''
   };
 
+  // Track collapsed state for each API response
+  collapsed: { [key: string]: boolean } = {
+    disneyCharacters: false,
+    digitalOceanStatus: false,
+    bankHolidays: false
+  };
+
+  // Info section collapsible state
+  infoSectionExpanded = false;
+
   constructor(private readonly publicApiService: PublicApiService) {}
 
   getDisneyCharacters(): void {
@@ -93,5 +103,34 @@ export class PublicApisComponent {
       return [];
     }
     return Object.keys(this.bankHolidaysData);
+  }
+
+  // Clear methods for each API
+  clearDisneyCharacters(): void {
+    this.disneyCharactersData = null;
+    this.error['disneyCharacters'] = '';
+    this.collapsed['disneyCharacters'] = false;
+  }
+
+  clearDigitalOceanStatus(): void {
+    this.digitalOceanStatusData = null;
+    this.error['digitalOceanStatus'] = '';
+    this.collapsed['digitalOceanStatus'] = false;
+  }
+
+  clearBankHolidays(): void {
+    this.bankHolidaysData = null;
+    this.error['bankHolidays'] = '';
+    this.collapsed['bankHolidays'] = false;
+  }
+
+  // Toggle collapse state
+  toggleCollapse(apiName: string): void {
+    this.collapsed[apiName] = !this.collapsed[apiName];
+  }
+
+  // Toggle info section
+  toggleInfoSection(): void {
+    this.infoSectionExpanded = !this.infoSectionExpanded;
   }
 }
