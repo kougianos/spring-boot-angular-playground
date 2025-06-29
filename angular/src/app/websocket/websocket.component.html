@@ -1,0 +1,168 @@
+<div class="websocket-container">
+  <h2>Real-Time Chat</h2>
+  
+  <!-- Info Section -->
+  <div class="info-section">
+    <mat-card class="info-card">
+        <div class="info-header" (click)="toggleInfoSection()" (keydown)="toggleInfoSection()">
+        <div class="header-content">
+          <mat-icon>info</mat-icon>
+          <h3 class="title">About This Demo</h3>
+          <span class="subtitle">Click to learn more</span>
+        </div>
+        <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
+          expand_more
+        </mat-icon>
+      </div>
+      <div class="info-content" [class.expanded]="infoSectionExpanded">
+        <div class="content-inner">
+          <p>
+            This page demonstrates <strong>Real-time WebSocket Communication</strong> using STOMP over SockJS through our full-stack architecture:
+          </p>
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <mat-icon>web</mat-icon>
+              <span>Angular Frontend</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>dns</mat-icon>
+              <span>Spring Boot WebSocket</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>chat</mat-icon>
+              <span>Real-time Chat</span>
+            </div>
+          </div>
+          <p>
+            Chat with other connected users in real-time. The system tracks user connections and disconnections, displaying both active and recently disconnected users in the sidebar.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <mat-icon>chat_bubble</mat-icon>
+              <span><strong>Real-time Messaging:</strong> Send and receive messages instantly</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>people</mat-icon>
+              <span><strong>User Tracking:</strong> See who's online and recently disconnected</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>notifications</mat-icon>
+              <span><strong>System Notifications:</strong> Join/leave announcements</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Main Chat Layout -->
+  <div class="chat-layout">
+    <!-- Users Sidebar -->
+    <div class="users-sidebar">
+      <div class="sidebar-header">
+        <mat-icon>people</mat-icon>
+        <h3>Users</h3>
+      </div>
+      
+      <!-- Connection Status -->
+      <div class="connection-status" [class.connected]="isConnected">
+        <mat-icon>{{isConnected ? 'wifi' : 'wifi_off'}}</mat-icon>
+        <span>{{isConnected ? 'Connected' : 'Disconnected'}}</span>
+      </div>
+
+      <!-- Connected Users -->
+      <div class="user-section">
+        <h4>
+          <mat-icon>circle</mat-icon>
+          Online ({{getConnectedUsers().length}})
+        </h4>
+        <div class="user-list">
+          <div class="user-item online" *ngFor="let user of getConnectedUsers()">
+            <mat-icon>person</mat-icon>
+            <span class="username">{{user.username}}</span>
+            <span class="you-indicator" *ngIf="user.username === currentUser">(You)</span>
+          </div>
+          <div class="no-users" *ngIf="getConnectedUsers().length === 0">
+            No users online
+          </div>
+        </div>
+      </div>
+
+      <!-- Disconnected Users -->
+      <div class="user-section" *ngIf="getDisconnectedUsers().length > 0">
+        <h4>
+          <mat-icon>radio_button_unchecked</mat-icon>
+          Recently Offline ({{getDisconnectedUsers().length}})
+        </h4>
+        <div class="user-list">
+          <div class="user-item offline" *ngFor="let user of getDisconnectedUsers()">
+            <mat-icon>person_outline</mat-icon>
+            <span class="username">{{user.username}}</span>
+            <span class="last-seen" *ngIf="user.lastSeen">
+              {{formatTimestamp(user.lastSeen)}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Main Area -->
+    <div class="chat-main">
+      <!-- Messages Container -->
+      <div class="messages-container">
+        <div class="message" 
+             *ngFor="let message of messages"
+             [class.own-message]="isOwnMessage(message)"
+             [class.system-message]="isSystemMessage(message)">
+          
+          <!-- System Messages -->
+          <div class="system-content" *ngIf="isSystemMessage(message)">
+            <mat-icon>{{message.type === 'JOIN' ? 'login' : 'logout'}}</mat-icon>
+            <span>{{message.content}}</span>
+            <span class="timestamp">{{formatTimestamp(message.timestamp)}}</span>
+          </div>
+
+          <!-- Chat Messages -->
+          <div class="chat-content" *ngIf="!isSystemMessage(message)">
+            <div class="message-header" *ngIf="!isOwnMessage(message)">
+              <span class="sender">{{message.sender}}</span>
+              <span class="timestamp">{{formatTimestamp(message.timestamp)}}</span>
+            </div>
+            <div class="message-header own-header" *ngIf="isOwnMessage(message)">
+              <span class="timestamp">{{formatTimestamp(message.timestamp)}}</span>
+              <span class="sender">You</span>
+            </div>
+            <div class="message-body">
+              {{message.content}}
+            </div>
+          </div>
+        </div>
+
+        <div class="no-messages" *ngIf="messages.length === 0">
+          <mat-icon>chat_bubble_outline</mat-icon>
+          <p>No messages yet. Start the conversation!</p>
+        </div>
+      </div>
+
+      <!-- Message Input -->
+      <div class="message-input-container">
+        <mat-form-field class="message-input" appearance="outline">
+          <mat-label>Type your message...</mat-label>
+          <input matInput 
+                 [(ngModel)]="messageInput"
+                 (keydown)="onKeyPress($event)"
+                 [disabled]="!isConnected"
+                 placeholder="Press Enter to send">
+          <button mat-icon-button 
+                  matSuffix 
+                  (click)="sendMessage()"
+                  [disabled]="!isConnected || !messageInput.trim()">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

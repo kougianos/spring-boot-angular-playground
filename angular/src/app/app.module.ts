@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 // Angular Material Modules
 import {MatButtonModule} from '@angular/material/button';
@@ -38,6 +38,7 @@ import {HeaderComponent} from './shared/header/header.component';
 import {AuthInterceptor} from './core/interceptors/auth.interceptor';
 import {MongodbComponent} from './mongodb/mongodb.component';
 import { PublicApisComponent } from './public-apis/public-apis.component';
+import { WebsocketComponent } from './websocket/websocket.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { PublicApisComponent } from './public-apis/public-apis.component';
         HomeComponent,
         HeaderComponent,
         MongodbComponent,
-        PublicApisComponent
+        PublicApisComponent,
+        WebsocketComponent
     ],
     imports: [
         BrowserModule,
@@ -55,6 +57,7 @@ import { PublicApisComponent } from './public-apis/public-apis.component';
         BrowserAnimationsModule,
         HttpClientModule,
         ReactiveFormsModule,
+        FormsModule,
         // Material Modules
         MatButtonModule,
         MatCardModule,

@@ -143,4 +143,9 @@ export class AuthService {
     const currentUser = this.currentUserSubject.value;
     return !!(currentUser && currentUser.username && currentUser.email);
   }
+
+  getUsername(): string | null {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.username || null;
+  }
 }
