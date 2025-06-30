@@ -1,4 +1,4 @@
-package com.springboot.starter.model;
+package com.springboot.starter.model.security;
 
 public enum Role {
     ROLE_USER,

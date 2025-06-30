@@ -1,7 +1,7 @@
 package com.springboot.starter.config;
 
-import com.springboot.starter.model.ChatMessage;
-import com.springboot.starter.service.UserConnectionService;
+import com.springboot.starter.model.websocket.ChatMessage;
+import com.springboot.starter.service.UserWSConnectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @Slf4j
 public class WebSocketEventListener {
 
-    private final UserConnectionService userConnectionService;
+    private final UserWSConnectionService userWSConnectionService;
     private final SimpMessagingTemplate messagingTemplate;
 
     @EventListener
@@ -34,7 +34,7 @@ public class WebSocketEventListener {
         if (username != null) {
             log.info("User {} disconnected", username);
             
-            userConnectionService.removeUser(username);
+            userWSConnectionService.removeUser(username);
             
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setType(ChatMessage.MessageType.LEAVE);
@@ -43,7 +43,7 @@ public class WebSocketEventListener {
             chatMessage.setTimestamp(System.currentTimeMillis());
             
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
-            messagingTemplate.convertAndSend("/topic/users", userConnectionService.getConnectedUsers());
+            messagingTemplate.convertAndSend("/topic/users", userWSConnectionService.getConnectedUsers());
         }
     }
 }

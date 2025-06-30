@@ -1,8 +1,8 @@
 package com.springboot.starter.service;
 
-import com.springboot.starter.dto.TestDocumentRequest;
-import com.springboot.starter.dto.TestDocumentResponse;
-import com.springboot.starter.model.TestDocument;
+import com.springboot.starter.model.crud.TestDocumentRequest;
+import com.springboot.starter.model.crud.TestDocumentResponse;
+import com.springboot.starter.model.persistence.TestDocument;
 import com.springboot.starter.repository.TestDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

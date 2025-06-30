@@ -1,4 +1,4 @@
-package com.springboot.starter.dto;
+package com.springboot.starter.model.security;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

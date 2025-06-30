@@ -1,4 +1,4 @@
-package com.springboot.starter.model;
+package com.springboot.starter.model.websocket;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

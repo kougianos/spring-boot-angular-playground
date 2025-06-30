@@ -1,4 +1,4 @@
-package com.springboot.starter.dto.publicapi;
+package com.springboot.starter.model.publicapi;
 
 //https://status.digitalocean.com/api/v2/status.json
 public record DigitalOceanStatusResponse(

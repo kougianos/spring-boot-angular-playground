@@ -1,4 +1,4 @@
-package com.springboot.starter.dto.publicapi;
+package com.springboot.starter.model.publicapi;
 
 import java.util.List;
 

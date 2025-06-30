@@ -1,8 +1,8 @@
 package com.springboot.starter.service;
 
-import com.springboot.starter.dto.publicapi.DigitalOceanStatusResponse;
-import com.springboot.starter.dto.publicapi.DisneyCharactersResponse;
-import com.springboot.starter.dto.publicapi.DivisionData;
+import com.springboot.starter.model.publicapi.DigitalOceanStatusResponse;
+import com.springboot.starter.model.publicapi.DisneyCharactersResponse;
+import com.springboot.starter.model.publicapi.DivisionData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;

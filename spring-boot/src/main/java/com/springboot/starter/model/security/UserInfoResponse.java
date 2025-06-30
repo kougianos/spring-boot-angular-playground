@@ -1,4 +1,4 @@
-package com.springboot.starter.dto;
+package com.springboot.starter.model.security;
 
 public record UserInfoResponse(
     String username,

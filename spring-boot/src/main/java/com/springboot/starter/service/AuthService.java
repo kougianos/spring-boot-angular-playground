@@ -1,11 +1,11 @@
 package com.springboot.starter.service;
 
-import com.springboot.starter.dto.JwtResponse;
-import com.springboot.starter.dto.LoginRequest;
-import com.springboot.starter.dto.SignupRequest;
-import com.springboot.starter.dto.UserInfoResponse;
-import com.springboot.starter.model.Role;
-import com.springboot.starter.model.User;
+import com.springboot.starter.model.security.JwtResponse;
+import com.springboot.starter.model.security.LoginRequest;
+import com.springboot.starter.model.security.SignupRequest;
+import com.springboot.starter.model.security.UserInfoResponse;
+import com.springboot.starter.model.security.Role;
+import com.springboot.starter.model.persistence.User;
 import com.springboot.starter.repository.UserRepository;
 import com.springboot.starter.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;

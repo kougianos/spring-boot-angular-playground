@@ -1,6 +1,6 @@
 package com.springboot.starter.repository;
 
-import com.springboot.starter.model.User;
+import com.springboot.starter.model.persistence.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

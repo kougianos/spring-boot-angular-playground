@@ -1,14 +1,14 @@
 package com.springboot.starter.controller;
 
-import com.springboot.starter.dto.JwtResponse;
-import com.springboot.starter.dto.LoginRequest;
-import com.springboot.starter.dto.SignupRequest;
-import com.springboot.starter.dto.TestDocumentRequest;
-import com.springboot.starter.dto.TestDocumentResponse;
-import com.springboot.starter.dto.UserInfoResponse;
-import com.springboot.starter.dto.publicapi.DigitalOceanStatusResponse;
-import com.springboot.starter.dto.publicapi.DisneyCharactersResponse;
-import com.springboot.starter.dto.publicapi.DivisionData;
+import com.springboot.starter.model.security.JwtResponse;
+import com.springboot.starter.model.security.LoginRequest;
+import com.springboot.starter.model.security.SignupRequest;
+import com.springboot.starter.model.crud.TestDocumentRequest;
+import com.springboot.starter.model.crud.TestDocumentResponse;
+import com.springboot.starter.model.security.UserInfoResponse;
+import com.springboot.starter.model.publicapi.DigitalOceanStatusResponse;
+import com.springboot.starter.model.publicapi.DisneyCharactersResponse;
+import com.springboot.starter.model.publicapi.DivisionData;
 import com.springboot.starter.service.AuthService;
 import com.springboot.starter.service.PublicApiService;
 import com.springboot.starter.service.TestDocumentService;
@@ -27,8 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-    RequestMethod.DELETE})
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ApiController {
 

@@ -1,4 +1,4 @@
-package com.springboot.starter.model;
+package com.springboot.starter.model.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

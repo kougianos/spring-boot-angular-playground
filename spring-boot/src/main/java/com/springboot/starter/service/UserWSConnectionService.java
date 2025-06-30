@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-public class UserConnectionService {
+public class UserWSConnectionService {
     
     private final Set<String> connectedUsers = ConcurrentHashMap.newKeySet();
     

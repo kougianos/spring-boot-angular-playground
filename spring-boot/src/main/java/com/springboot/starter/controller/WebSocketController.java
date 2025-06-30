@@ -1,8 +1,8 @@
 package com.springboot.starter.controller;
 
-import com.springboot.starter.model.ChatMessage;
-import com.springboot.starter.model.UserConnectionEvent;
-import com.springboot.starter.service.UserConnectionService;
+import com.springboot.starter.model.websocket.ChatMessage;
+import com.springboot.starter.model.websocket.UserConnectionEvent;
+import com.springboot.starter.service.UserWSConnectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @Slf4j
 public class WebSocketController {
 
-    private final UserConnectionService userConnectionService;
+    private final UserWSConnectionService userWSConnectionService;
     private final SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/chat.sendMessage")
@@ -37,7 +37,7 @@ public class WebSocketController {
         
         Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", username);
         
-        userConnectionService.addUser(username);
+        userWSConnectionService.addUser(username);
         
         chatMessage.setType(ChatMessage.MessageType.JOIN);
         chatMessage.setContent(username + " joined the chat");
@@ -54,6 +54,6 @@ public class WebSocketController {
         UserConnectionEvent connectionEvent = new UserConnectionEvent();
         connectionEvent.setTimestamp(System.currentTimeMillis());
         
-        messagingTemplate.convertAndSend("/topic/users", userConnectionService.getConnectedUsers());
+        messagingTemplate.convertAndSend("/topic/users", userWSConnectionService.getConnectedUsers());
     }
 }

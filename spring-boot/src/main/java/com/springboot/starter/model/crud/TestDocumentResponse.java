@@ -1,4 +1,4 @@
-package com.springboot.starter.dto;
+package com.springboot.starter.model.crud;
 
 import java.time.LocalDateTime;
 
