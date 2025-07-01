@@ -8,6 +8,54 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Shared container styles for consistent page layouts */
+.page-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px); /* Account for header height */
+  
+  /* Responsive padding for smaller screens */
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+}
+
+.page-container-full {
+  padding: 20px;
+  min-height: calc(100vh - 64px);
+  
+  /* Responsive padding for smaller screens */
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+}
+
+.page-title {
+  color: #3f51b5;
+  margin-bottom: 20px;
+  font-weight: 500;
+  
+  /* Responsive font sizes */
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+}
+
 .full-width {
   width: 100%;
 }
