@@ -18,6 +18,7 @@ export class WebSocketService {
   private readonly connected = new BehaviorSubject<boolean>(false);
   private readonly messages = new Subject<ChatMessage>();
   private readonly connectedUsers = new Subject<string[]>();
+  private topicsSubscribed = false;
 
   constructor() {
     this.client = new Client({
@@ -44,32 +45,40 @@ export class WebSocketService {
     this.client.onDisconnect = () => {
       console.log('Disconnected from WebSocket');
       this.connected.next(false);
+      this.topicsSubscribed = false; // Reset subscription flag on disconnect
     };
 
     this.client.onStompError = (frame) => {
       console.error('STOMP error:', frame);
       this.connected.next(false);
+      this.topicsSubscribed = false; // Reset subscription flag on error
     };
 
     this.client.onWebSocketError = (error) => {
       console.error('WebSocket error:', error);
       console.error('Make sure the Spring Boot application is running on http://localhost:8080');
       this.connected.next(false);
+      this.topicsSubscribed = false; // Reset subscription flag on error
     };
   }
 
   private subscribeToTopics() {
-    // Subscribe to public messages
-    this.client.subscribe('/topic/public', (message: Message) => {
-      const chatMessage: ChatMessage = JSON.parse(message.body);
-      this.messages.next(chatMessage);
-    });
+    // Only subscribe if not already subscribed to avoid duplicates
+    if (!this.topicsSubscribed) {
+      // Subscribe to public messages
+      this.client.subscribe('/topic/public', (message: Message) => {
+        const chatMessage: ChatMessage = JSON.parse(message.body);
+        this.messages.next(chatMessage);
+      });
 
-    // Subscribe to connected users updates
-    this.client.subscribe('/topic/users', (message: Message) => {
-      const users: string[] = JSON.parse(message.body);
-      this.connectedUsers.next(users);
-    });
+      // Subscribe to connected users updates
+      this.client.subscribe('/topic/users', (message: Message) => {
+        const users: string[] = JSON.parse(message.body);
+        this.connectedUsers.next(users);
+      });
+
+      this.topicsSubscribed = true;
+    }
   }
 
   connect(): Observable<boolean> {

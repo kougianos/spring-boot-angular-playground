@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { WebSocketService } from './websocket.service';
 
@@ -28,6 +29,8 @@ export class WebsocketComponent implements OnInit, OnDestroy {
   messageInput = '';
   currentUser: string = '';
   isConnected = false;
+  
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly authService: AuthService,
@@ -40,6 +43,9 @@ export class WebsocketComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Unsubscribe from all subscriptions to prevent memory leaks and multiple subscriptions
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
     this.webSocketService.disconnect();
   }
 
@@ -48,7 +54,7 @@ export class WebsocketComponent implements OnInit, OnDestroy {
   }
 
   connectToWebSocket() {
-    this.webSocketService.connect().subscribe({
+    const connectionSub = this.webSocketService.connect().subscribe({
       next: (connected: boolean) => {
         this.isConnected = connected;
         if (connected) {
@@ -58,17 +64,19 @@ export class WebsocketComponent implements OnInit, OnDestroy {
         }
       }
     });
+    this.subscriptions.push(connectionSub);
   }
 
   private subscribeToMessages() {
-    this.webSocketService.getMessages().subscribe((message: ChatMessage) => {
+    const messagesSub = this.webSocketService.getMessages().subscribe((message: ChatMessage) => {
       this.messages.push(message);
       this.scrollToBottom();
     });
+    this.subscriptions.push(messagesSub);
   }
 
   private subscribeToUsers() {
-    this.webSocketService.getConnectedUsers().subscribe((connectedUsers: string[]) => {
+    const usersSub = this.webSocketService.getConnectedUsers().subscribe((connectedUsers: string[]) => {
       // Update existing users or add new ones
       connectedUsers.forEach(username => {
         const existingUser = this.users.find(u => u.username === username);
@@ -87,6 +95,7 @@ export class WebsocketComponent implements OnInit, OnDestroy {
         }
       });
     });
+    this.subscriptions.push(usersSub);
   }
 
   private addUser() {

@@ -37,17 +37,29 @@ public class WebSocketController {
         
         Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", username);
         
+        // Check if user is already connected to avoid duplicate JOIN messages
+        boolean wasAlreadyConnected = userWSConnectionService.isUserConnected(username);
+        
         userWSConnectionService.addUser(username);
         
-        chatMessage.setType(ChatMessage.MessageType.JOIN);
-        chatMessage.setContent(username + " joined the chat");
-        chatMessage.setTimestamp(System.currentTimeMillis());
-        
-        log.info("User {} joined the chat", username);
-        
-        sendConnectedUsersList();
-        
-        return chatMessage;
+        // Only send JOIN message if user wasn't already connected
+        if (!wasAlreadyConnected) {
+            chatMessage.setType(ChatMessage.MessageType.JOIN);
+            chatMessage.setContent(username + " joined the chat");
+            chatMessage.setTimestamp(System.currentTimeMillis());
+            
+            log.info("User {} joined the chat", username);
+            
+            sendConnectedUsersList();
+            
+            return chatMessage;
+        } else {
+            log.info("User {} reconnected (already in connected users)", username);
+            sendConnectedUsersList();
+            
+            // Return null to avoid broadcasting a duplicate JOIN message
+            return null;
+        }
     }
 
     private void sendConnectedUsersList() {
