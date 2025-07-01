@@ -60,7 +60,14 @@ export class WebsocketComponent implements OnInit, OnDestroy {
         if (connected) {
           this.subscribeToMessages();
           this.subscribeToUsers();
-          this.addUser();
+          
+          // Fetch initial users list to avoid race condition
+          this.fetchInitialUsers();
+          
+          // Add a small delay to ensure subscriptions are established before joining
+          setTimeout(() => {
+            this.addUser();
+          }, 100);
         }
       }
     });
@@ -96,6 +103,28 @@ export class WebsocketComponent implements OnInit, OnDestroy {
       });
     });
     this.subscriptions.push(usersSub);
+  }
+
+  private fetchInitialUsers() {
+    // Fetch current connected users via HTTP to avoid WebSocket subscription race condition
+    const initialUsersSub = this.webSocketService.fetchInitialConnectedUsers().subscribe({
+      next: (connectedUsers: string[]) => {
+        console.log('Fetched initial connected users:', connectedUsers);
+        // Process the initial users list same way as WebSocket updates
+        connectedUsers.forEach(username => {
+          const existingUser = this.users.find(u => u.username === username);
+          if (existingUser) {
+            existingUser.connected = true;
+          } else {
+            this.users.push({ username, connected: true });
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Failed to fetch initial connected users:', error);
+      }
+    });
+    this.subscriptions.push(initialUsersSub);
   }
 
   private addUser() {

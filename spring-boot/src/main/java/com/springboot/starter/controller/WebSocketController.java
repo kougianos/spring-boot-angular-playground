@@ -42,6 +42,8 @@ public class WebSocketController {
         
         userWSConnectionService.addUser(username);
         
+        sendConnectedUsersList();
+        
         // Only send JOIN message if user wasn't already connected
         if (!wasAlreadyConnected) {
             chatMessage.setType(ChatMessage.MessageType.JOIN);
@@ -50,12 +52,9 @@ public class WebSocketController {
             
             log.info("User {} joined the chat", username);
             
-            sendConnectedUsersList();
-            
             return chatMessage;
         } else {
             log.info("User {} reconnected (already in connected users)", username);
-            sendConnectedUsersList();
             
             // Return null to avoid broadcasting a duplicate JOIN message
             return null;

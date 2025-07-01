@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Client, Message } from '@stomp/stompjs';
 
@@ -19,8 +20,9 @@ export class WebSocketService {
   private readonly messages = new Subject<ChatMessage>();
   private readonly connectedUsers = new Subject<string[]>();
   private topicsSubscribed = false;
+  private readonly apiUrl = 'http://localhost:8080/api/websocket';
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.client = new Client({
       brokerURL: `ws://localhost:8080/websocket`,
       connectHeaders: {},
@@ -74,10 +76,12 @@ export class WebSocketService {
       // Subscribe to connected users updates
       this.client.subscribe('/topic/users', (message: Message) => {
         const users: string[] = JSON.parse(message.body);
+        console.log('Received users update via WebSocket:', users);
         this.connectedUsers.next(users);
       });
 
       this.topicsSubscribed = true;
+      console.log('WebSocket topics subscribed successfully');
     }
   }
 
@@ -118,6 +122,11 @@ export class WebSocketService {
 
   getConnectedUsers(): Observable<string[]> {
     return this.connectedUsers.asObservable();
+  }
+
+  // Fetch initial connected users list via HTTP to avoid race condition
+  fetchInitialConnectedUsers(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/connected-users`);
   }
 
 }
