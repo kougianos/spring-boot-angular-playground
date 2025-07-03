@@ -1,5 +1,8 @@
 package com.springboot.starter.infrastructure;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.starter.model.cache.CacheEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -19,14 +22,16 @@ public class InfraHealthChecker implements InitializingBean {
 
     private final MongoTemplate mongoTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, CacheEvent> kafkaTemplate;
+    private final ObjectMapper mapper;
 
     @KafkaListener(topics = KAFKA_TEST_TOPIC, groupId = "infrastructure-checker")
-    public void receiveTestKafkaMessage(String message) {
-        if (message.equals(testMessage)) {
+    public void receiveTestKafkaMessage(String message) throws JsonProcessingException {
+        var msg = mapper.readValue(message, CacheEvent.class);
+        if (msg.eventType().equals(testMessage)) {
             log.info("[infra-check] ✅ Kafka connection successful. Test message sent and received from topic: {}, " +
                     "message: {}",
-                KAFKA_TEST_TOPIC, message);
+                KAFKA_TEST_TOPIC, msg);
         } else {
             log.warn("[infra-check] Kafka message received but content mismatch. Sent: {}, Received: {}",
                 message, testMessage);
@@ -62,6 +67,6 @@ public class InfraHealthChecker implements InitializingBean {
     private void sendKafkaMessage() {
         testMessage = "Test message at " + System.currentTimeMillis();
         log.info("[infra-check] Sending Kafka test message: {}", testMessage);
-        kafkaTemplate.send(KAFKA_TEST_TOPIC, testMessage);
+        kafkaTemplate.send(KAFKA_TEST_TOPIC, CacheEvent.builder().eventType(testMessage).build());
     }
 }

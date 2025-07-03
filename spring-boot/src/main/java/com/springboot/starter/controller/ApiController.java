@@ -10,10 +10,12 @@ import com.springboot.starter.model.publicapi.DigitalOceanStatusResponse;
 import com.springboot.starter.model.publicapi.DisneyCharactersResponse;
 import com.springboot.starter.model.publicapi.DivisionData;
 import com.springboot.starter.service.AuthService;
+import com.springboot.starter.service.CacheService;
 import com.springboot.starter.service.PublicApiService;
 import com.springboot.starter.service.TestDocumentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +32,13 @@ import java.util.Map;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class ApiController {
 
     private final AuthService authService;
     private final TestDocumentService testDocumentService;
     private final PublicApiService publicApiService;
+    private final CacheService cacheService;
 
     @PostMapping("/auth/signup")
     public ResponseEntity<Void> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
@@ -68,10 +73,18 @@ public class ApiController {
     @GetMapping("/test-documents")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<TestDocumentResponse>> getAllTestDocuments() {
-        List<TestDocumentResponse> documents = testDocumentService.getAllTestDocuments();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+        // Check rate limit
+        if (!cacheService.checkRateLimit(userDetails.getUsername(), "get-test-documents", 50, Duration.ofMinutes(1))) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
+        
+        List<TestDocumentResponse> documents = testDocumentService.getAllTestDocuments(userDetails.getUsername());
         return ResponseEntity.ok(documents);
     }
-    
+
     @PutMapping("/test-documents/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<TestDocumentResponse> updateTestDocument(

@@ -39,6 +39,7 @@ import {AuthInterceptor} from './core/interceptors/auth.interceptor';
 import {MongodbComponent} from './mongodb/mongodb.component';
 import { PublicApisComponent } from './public-apis/public-apis.component';
 import { WebsocketComponent } from './websocket/websocket.component';
+import { CacheAnalyticsComponent } from './cache-analytics/cache-analytics.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { WebsocketComponent } from './websocket/websocket.component';
         HeaderComponent,
         MongodbComponent,
         PublicApisComponent,
-        WebsocketComponent
+        WebsocketComponent,
+        CacheAnalyticsComponent
     ],
     imports: [
         BrowserModule,

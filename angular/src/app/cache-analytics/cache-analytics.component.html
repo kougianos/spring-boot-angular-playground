@@ -1,0 +1,239 @@
+<div class="cache-analytics-container">
+  <h2>Cache Analytics Dashboard</h2>
+
+  <!-- Info Section -->
+  <div class="info-section">
+    <mat-card class="info-card">
+      <div class="info-header" (click)="toggleInfoSection()">
+        <div class="header-content">
+          <mat-icon>info</mat-icon>
+          <h3 class="title">About This Page</h3>
+          <span class="subtitle">Click to learn more</span>
+        </div>
+        <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
+          expand_more
+        </mat-icon>
+      </div>
+      <div class="info-content" [class.expanded]="infoSectionExpanded">
+        <div class="content-inner">
+          <p>
+            This page demonstrates <strong>Redis Cache Analytics & Kafka Event Streaming</strong> with comprehensive monitoring through our full-stack architecture:
+          </p>
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <mat-icon>web</mat-icon>
+              <span>Angular Frontend</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>dns</mat-icon>
+              <span>Spring Boot API</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>memory</mat-icon>
+              <span>Redis Cache</span>
+            </div>
+            <mat-icon class="flow-arrow">arrow_forward</mat-icon>
+            <div class="flow-step">
+              <mat-icon>analytics</mat-icon>
+              <span>Kafka Analytics</span>
+            </div>
+          </div>
+          <p>
+            <strong>Under the Hood:</strong> When you access cached data (MongoDB queries, external APIs), Spring Boot's CacheService checks Redis first. 
+            Cache hits/misses, response times, and rate limiting events are streamed to Kafka topics for real-time analytics processing.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <mat-icon>speed</mat-icon>
+              <span><strong>Cache-Aside Pattern:</strong> Intelligent caching reduces database load and improves response times</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>timeline</mat-icon>
+              <span><strong>Real-time Analytics:</strong> Live cache hit/miss tracking with performance metrics</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>security</mat-icon>
+              <span><strong>Rate Limiting:</strong> Redis-based user rate limiting prevents API abuse</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>event</mat-icon>
+              <span><strong>Event Streaming:</strong> All cache operations streamed to Kafka for audit trails</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>cached</mat-icon>
+              <span><strong>Cache Warming:</strong> Automatic cache population on startup for better performance</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>dashboard</mat-icon>
+              <span><strong>Management UI:</strong> Clear analytics, evict cache keys, and warm up cache manually</span>
+            </div>
+          </div>
+          <p>
+            <strong>Data Flow:</strong> MongoDB queries and external API calls are cached in Redis with configurable TTL. 
+            Every cache operation generates Kafka events processed by CacheAnalyticsService for real-time dashboard updates.
+          </p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="actions-section">
+    <button 
+      class="btn btn-danger" 
+      (click)="clearAnalytics()" 
+      [disabled]="isLoading">
+      {{ isLoading ? 'Clearing...' : 'Clear Analytics' }}
+    </button>
+    <button 
+      class="btn btn-success" 
+      (click)="warmUpCache()" 
+      [disabled]="isLoading">
+      {{ isLoading ? 'Warming...' : 'Warm Up Cache' }}
+    </button>
+    <button 
+      class="btn btn-primary" 
+      (click)="checkRateLimit()">
+      Test Rate Limit
+    </button>
+  </div>
+
+  <div class="analytics-grid" *ngIf="analytics$ | async as analytics">
+    <!-- Overview Cards -->
+    <div class="stats-cards">
+      <div class="stat-card">
+        <h3>Total Requests</h3>
+        <div class="stat-value">{{ analytics.totalRequests | number }}</div>
+      </div>
+      <div class="stat-card">
+        <h3>Cache Hit Rate</h3>
+        <div class="stat-value">{{ analytics.hitRate | number:'1.1-1' }}%</div>
+      </div>
+      <div class="stat-card">
+        <h3>Cache Hits</h3>
+        <div class="stat-value">{{ analytics.cacheHits | number }}</div>
+      </div>
+      <div class="stat-card">
+        <h3>Cache Misses</h3>
+        <div class="stat-value">{{ analytics.cacheMisses | number }}</div>
+      </div>
+      <div class="stat-card">
+        <h3>Avg Response Time</h3>
+        <div class="stat-value">{{ analytics.avgResponseTimeMs }}ms</div>
+      </div>
+    </div>
+
+    <!-- Top Cache Keys -->
+    <div class="chart-section">
+      <h3>Top Cache Keys</h3>
+      <div class="table-container">
+        <table class="cache-table">
+          <thead>
+            <tr>
+              <th>Cache Key</th>
+              <th>Access Count</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of getTopCacheKeysArray(analytics.topCacheKeys)">
+              <td>{{ item.key }}</td>
+              <td>{{ item.count | number }}</td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-warning" 
+                  (click)="evictCacheKey(item.key)">
+                  Evict
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Operation Counts -->
+    <div class="chart-section">
+      <h3>Operation Counts</h3>
+      <div class="table-container">
+        <table class="cache-table">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of getOperationCountsArray(analytics.operationCounts)">
+              <td>{{ item.operation }}</td>
+              <td>{{ item.count | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Rate Limit Stats -->
+    <div class="chart-section">
+      <h3>Rate Limit Statistics</h3>
+      <div class="rate-limit-stats">
+        <div class="stat-item">
+          <strong>Total Checks:</strong> {{ analytics.rateLimitStats.totalRateLimitChecks | number }}
+        </div>
+        <div class="stat-item">
+          <strong>Exceeded:</strong> {{ analytics.rateLimitStats.rateLimitExceeded | number }}
+        </div>
+        <div class="stat-item">
+          <strong>Success Rate:</strong> 
+          {{ analytics.rateLimitStats.totalRateLimitChecks > 0 ? 
+             ((analytics.rateLimitStats.totalRateLimitChecks - analytics.rateLimitStats.rateLimitExceeded) / 
+              analytics.rateLimitStats.totalRateLimitChecks * 100 | number:'1.1-1') : 0 }}%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Cache Stats -->
+  <div class="cache-stats-section" *ngIf="cacheStats$ | async as cacheStats">
+    <h3>Individual Cache Statistics</h3>
+    <div class="table-container">
+      <table class="cache-table">
+        <thead>
+          <tr>
+            <th>Cache Key</th>
+            <th>Hit Count</th>
+            <th>Miss Count</th>
+            <th>Hit Rate</th>
+            <th>Last Accessed</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stat of cacheStats">
+            <td>{{ stat.cacheKey }}</td>
+            <td>{{ stat.hitCount | number }}</td>
+            <td>{{ stat.missCount | number }}</td>
+            <td>{{ stat.hitRate | number:'1.1-1' }}%</td>
+            <td>{{ stat.lastAccessed | date:'medium' }}</td>
+            <td>
+              <button 
+                class="btn btn-sm btn-warning" 
+                (click)="evictCacheKey(stat.cacheKey)">
+                Evict
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="last-updated" *ngIf="analytics$ | async as analytics">
+    <small>Last updated: {{ analytics.lastUpdated | date:'medium' }}</small>
+  </div>
+</div>

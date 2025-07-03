@@ -7,6 +7,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { MongodbComponent } from './mongodb/mongodb.component';
 import { PublicApisComponent } from './public-apis/public-apis.component';
 import { WebsocketComponent } from './websocket/websocket.component';
+import { CacheAnalyticsComponent } from './cache-analytics/cache-analytics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'mongodb', component: MongodbComponent, canActivate: [AuthGuard] },
   { path: 'public-apis', component: PublicApisComponent, canActivate: [AuthGuard] },
   { path: 'websocket', component: WebsocketComponent, canActivate: [AuthGuard] },
+  { path: 'cache-analytics', component: CacheAnalyticsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' }
 ];
 
