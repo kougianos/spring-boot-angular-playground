@@ -40,6 +40,11 @@ public class ApiController {
     private final PublicApiService publicApiService;
     private final CacheService cacheService;
 
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Hello!");
+    }
+
     @PostMapping("/auth/signup")
     public ResponseEntity<Void> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         authService.registerUser(signupRequest);
