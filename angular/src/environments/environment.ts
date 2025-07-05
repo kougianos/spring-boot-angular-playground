@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: '/api',
-  wsUrl: '/websocket'
+  apiUrl: 'http://localhost:8080/api',
+  wsUrl: 'localhost:8080/websocket'
 };
