@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Client, Message } from '@stomp/stompjs';
+import { environment } from '../../environments/environment';
 
 export interface ChatMessage {
   id?: string;
@@ -20,11 +21,15 @@ export class WebSocketService {
   private readonly messages = new Subject<ChatMessage>();
   private readonly connectedUsers = new Subject<string[]>();
   private topicsSubscribed = false;
-  private readonly apiUrl = 'http://localhost:8080/api/websocket';
+  private readonly apiUrl = `${environment.apiUrl}/websocket`;
 
   constructor(private http: HttpClient) {
+    // Construct WebSocket URL based on current location
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}${environment.wsUrl}`;
+    
     this.client = new Client({
-      brokerURL: `ws://localhost:8080/websocket`,
+      brokerURL: wsUrl,
       connectHeaders: {},
       debug: (str) => {
         console.log('STOMP: ' + str);
@@ -58,7 +63,7 @@ export class WebSocketService {
 
     this.client.onWebSocketError = (error) => {
       console.error('WebSocket error:', error);
-      console.error('Make sure the Spring Boot application is running on http://localhost:8080');
+      console.error('Make sure the Spring Boot application is running and accessible');
       this.connected.next(false);
       this.topicsSubscribed = false; // Reset subscription flag on error
     };
