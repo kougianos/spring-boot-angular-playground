@@ -1,5 +1,6 @@
 package com.springboot.starter.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.springboot.starter.model.publicapi.DigitalOceanStatusResponse;
 import com.springboot.starter.model.publicapi.DisneyCharactersResponse;
 import com.springboot.starter.model.publicapi.DivisionData;
@@ -34,7 +35,8 @@ public class PublicApiService {
                 return restTemplate.getForObject(apiUrl, DisneyCharactersResponse.class);
             },
             Duration.ofMinutes(30),
-            userId
+            userId,
+            DisneyCharactersResponse.class
         );
     }
 
@@ -50,7 +52,8 @@ public class PublicApiService {
                 return restTemplate.getForObject(apiUrl, DigitalOceanStatusResponse.class);
             },
             Duration.ofMinutes(15),
-            userId
+            userId,
+            DigitalOceanStatusResponse.class
         );
     }
 
@@ -71,7 +74,9 @@ public class PublicApiService {
                 return responseEntity.getBody();
             },
             Duration.ofHours(2),
-            userId
+            userId,
+            new TypeReference<>() {
+            }
         );
     }
 }
