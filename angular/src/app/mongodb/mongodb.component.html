@@ -1,14 +1,14 @@
 <div class="page-container">
   <div class="header">
-    <h1 class="page-title">MongoDB CRUD Operations Demo</h1>
+    <h1 class="page-title">{{ 'MONGODB.TITLE' | translate }}</h1>
     <div class="spacer"></div>
     <button mat-raised-button color="primary" (click)="openCreateForm()">
       <mat-icon>add</mat-icon>
-      New Document
+      {{ 'MONGODB.NEW_DOCUMENT' | translate }}
     </button>
     <button mat-raised-button color="accent" (click)="loadTestDocuments()">
       <mat-icon>refresh</mat-icon>
-      Refresh
+      {{ 'MONGODB.REFRESH' | translate }}
     </button>
   </div>
 
@@ -17,8 +17,8 @@
       <div class="info-header" (click)="toggleInfoSection()">
         <div class="header-content">
           <mat-icon>info</mat-icon>
-          <h3 class="title">About This Page</h3>
-          <span class="subtitle">Click to learn more</span>
+          <h3 class="title">{{ 'MONGODB.ABOUT_TITLE' | translate }}</h3>
+          <span class="subtitle">{{ 'MONGODB.ABOUT_SUBTITLE' | translate }}</span>
         </div>
         <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
           expand_more
@@ -27,43 +27,43 @@
       <div class="info-content" [class.expanded]="infoSectionExpanded">
         <div class="content-inner">
           <p>
-            This page demonstrates <strong>full CRUD operations</strong> (Create, Read, Update, Delete) on MongoDB documents through our full-stack architecture:
+            {{ 'MONGODB.ABOUT_DESCRIPTION' | translate }}
           </p>
           <div class="flow-diagram">
             <div class="flow-step">
               <mat-icon>web</mat-icon>
-              <span>Angular Frontend</span>
+              <span>{{ 'MONGODB.FLOW_ANGULAR' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>dns</mat-icon>
-              <span>Spring Boot Backend</span>
+              <span>{{ 'MONGODB.FLOW_SPRING' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>storage</mat-icon>
-              <span>MongoDB Database</span>
+              <span>{{ 'MONGODB.FLOW_MONGODB' | translate }}</span>
             </div>
           </div>
           <p>
-            You can create, view, edit, and delete documents with various data types including text, numbers, booleans, and timestamps. All operations are performed through REST API calls that persist data in MongoDB.
+            {{ 'MONGODB.CRUD_DESCRIPTION' | translate }}
           </p>
           <div class="feature-list">
             <div class="feature-item">
               <mat-icon>add_circle</mat-icon>
-              <span><strong>Create:</strong> Add new documents with validation and form controls</span>
+              <span><strong>{{ 'MONGODB.CREATE_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>visibility</mat-icon>
-              <span><strong>Read:</strong> Display documents in a sortable, interactive table</span>
+              <span><strong>{{ 'MONGODB.READ_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>edit</mat-icon>
-              <span><strong>Update:</strong> Edit existing documents with pre-populated forms</span>
+              <span><strong>{{ 'MONGODB.UPDATE_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>delete</mat-icon>
-              <span><strong>Delete:</strong> Remove documents with confirmation dialogs</span>
+              <span><strong>{{ 'MONGODB.DELETE_FEATURE' | translate }}</strong></span>
             </div>
           </div>
         </div>
@@ -73,41 +73,41 @@
 
   <!-- Document Form -->
   <div *ngIf="showForm" class="form-container mat-elevation-z4">
-    <h2>{{ isEditing ? 'Edit' : 'Create' }} Document</h2>
+    <h2>{{ isEditing ? ('MONGODB.EDIT_DOCUMENT' | translate) : ('MONGODB.CREATE_DOCUMENT' | translate) }}</h2>
     <form [formGroup]="documentForm" (ngSubmit)="saveDocument()">
       <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Text Field</mat-label>
-          <input matInput formControlName="textField" placeholder="Enter text">
+          <mat-label>{{ 'MONGODB.TEXT_FIELD' | translate }}</mat-label>
+          <input matInput formControlName="textField" placeholder="{{ 'MONGODB.ENTER_TEXT' | translate }}">
           <mat-error *ngIf="documentForm.get('textField')?.hasError('required')">
-            Text field is required
+            {{ 'MONGODB.TEXT_REQUIRED' | translate }}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Number Field</mat-label>
-          <input matInput type="number" formControlName="numberField" placeholder="Enter number">
+          <mat-label>{{ 'MONGODB.NUMBER_FIELD' | translate }}</mat-label>
+          <input matInput type="number" formControlName="numberField" placeholder="{{ 'MONGODB.ENTER_NUMBER' | translate }}">
           <mat-error *ngIf="documentForm.get('numberField')?.hasError('required')">
-            Number field is required
+            {{ 'MONGODB.NUMBER_REQUIRED' | translate }}
           </mat-error>
           <mat-error *ngIf="documentForm.get('numberField')?.hasError('min')">
-            Number must be positive
+            {{ 'MONGODB.NUMBER_MIN' | translate }}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="form-row">
         <mat-slide-toggle formControlName="booleanFlag" color="primary">
-          {{ documentForm.get('booleanFlag')?.value ? 'Active' : 'Inactive' }}
+          {{ documentForm.get('booleanFlag')?.value ? ('MONGODB.ACTIVE' | translate) : ('MONGODB.INACTIVE' | translate) }}
         </mat-slide-toggle>
       </div>
 
       <div class="form-actions">
-        <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+        <button mat-button type="button" (click)="cancelForm()">{{ 'MONGODB.CANCEL' | translate }}</button>
         <button mat-raised-button color="primary" type="submit" [disabled]="documentForm.invalid">
-          {{ isEditing ? 'Update' : 'Create' }}
+          {{ isEditing ? ('MONGODB.UPDATE' | translate) : ('MONGODB.CREATE' | translate) }}
         </button>
       </div>
     </form>
@@ -123,58 +123,58 @@
         <table mat-table [dataSource]="documents" class="mat-elevation-z4">
           <!-- ID Column -->
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.ID' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.id }}</td>
           </ng-container>
 
           <!-- Creator Column -->
           <ng-container matColumnDef="creator">
-            <th mat-header-cell *matHeaderCellDef>Creator</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.CREATOR' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.creator }}</td>
           </ng-container>
 
           <!-- Text Field Column -->
           <ng-container matColumnDef="textField">
-            <th mat-header-cell *matHeaderCellDef>Text</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.TEXT' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.textField }}</td>
           </ng-container>
 
           <!-- Number Field Column -->
           <ng-container matColumnDef="numberField">
-            <th mat-header-cell *matHeaderCellDef>Number</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.NUMBER' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.numberField }}</td>
           </ng-container>
 
           <!-- Boolean Flag Column -->
           <ng-container matColumnDef="booleanFlag">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.STATUS' | translate }}</th>
             <td mat-cell *matCellDef="let doc">
               <mat-chip [color]="doc.booleanFlag ? 'primary' : 'warn'" selected>
-                {{ doc.booleanFlag ? 'Active' : 'Inactive' }}
+                {{ doc.booleanFlag ? ('MONGODB.ACTIVE' | translate) : ('MONGODB.INACTIVE' | translate) }}
               </mat-chip>
             </td>
           </ng-container>
 
           <!-- Date Created Column -->
           <ng-container matColumnDef="dateCreated">
-            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.CREATED' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.dateCreated | date:'medium' }}</td>
           </ng-container>
 
           <!-- Date Updated Column -->
           <ng-container matColumnDef="dateUpdated">
-            <th mat-header-cell *matHeaderCellDef>Updated</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.UPDATED' | translate }}</th>
             <td mat-cell *matCellDef="let doc">{{ doc.dateUpdated | date:'medium' }}</td>
           </ng-container>
 
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'MONGODB.ACTIONS' | translate }}</th>
             <td mat-cell *matCellDef="let doc">
-              <button mat-icon-button color="primary" (click)="openEditForm(doc)" matTooltip="Edit">
+              <button mat-icon-button color="primary" (click)="openEditForm(doc)" matTooltip="{{ 'MONGODB.EDIT' | translate }}">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteDocument(doc.id)" matTooltip="Delete">
+              <button mat-icon-button color="warn" (click)="deleteDocument(doc.id)" matTooltip="{{ 'MONGODB.DELETE' | translate }}">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -188,7 +188,7 @@
       <ng-template #noData>
         <div class="no-data-container">
           <mat-icon>info</mat-icon>
-          <p>No documents found in the database.</p>
+          <p>{{ 'MONGODB.NO_DOCUMENTS' | translate }}</p>
         </div>
       </ng-template>
     </div>

@@ -24,54 +24,54 @@
           <div class="flow-diagram">
             <div class="flow-step">
               <mat-icon>login</mat-icon>
-              <span>User Login</span>
+              <span>{{ 'AUTH.LOGIN.FLOW_DIAGRAM.USER_LOGIN' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>verified_user</mat-icon>
-              <span>Spring Security</span>
+              <span>{{ 'AUTH.LOGIN.FLOW_DIAGRAM.SPRING_SECURITY' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>key</mat-icon>
-              <span>JWT Token</span>
+              <span>{{ 'AUTH.LOGIN.FLOW_DIAGRAM.JWT_TOKEN' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>shield</mat-icon>
-              <span>Angular Guards</span>
+              <span>{{ 'AUTH.LOGIN.FLOW_DIAGRAM.ANGULAR_GUARDS' | translate }}</span>
             </div>
           </div>
           
           <div class="feature-list">
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>JWT Authentication:</strong> Stateless, secure token-based authentication</span>
+              <span><strong>{{ 'FEATURES.JWT_AUTH' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>Angular Route Guards:</strong> Protect routes and redirect unauthorized users</span>
+              <span><strong>{{ 'FEATURES.ROUTE_GUARDS' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>HTTP Interceptors:</strong> Automatic token injection and error handling</span>
+              <span><strong>{{ 'FEATURES.INTERCEPTORS' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>Spring Boot Security:</strong> Robust backend authentication and authorization</span>
+              <span><strong>{{ 'FEATURES.SPRING_SECURITY' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>Password Security:</strong> Bcrypt hashing with salt for secure password storage</span>
+              <span><strong>{{ 'AUTH.LOGIN.FEATURES.PASSWORD_SECURITY' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>check_circle</mat-icon>
-              <span><strong>Session Management:</strong> Automatic token refresh and logout handling</span>
+              <span><strong>{{ 'AUTH.LOGIN.FEATURES.SESSION_MANAGEMENT' | translate }}</strong></span>
             </div>
           </div>
           
           <p>
-            Try logging in to see the authentication flow in action. Invalid credentials will trigger proper error handling, while successful authentication will redirect you to the protected dashboard.
+            {{ 'AUTH.LOGIN.TRY_LOGIN' | translate }}
           </p>
         </div>
       </div>
@@ -80,27 +80,27 @@
 
   <mat-card class="auth-card">
     <div class="auth-card-header">
-      <h1>Login</h1>
+      <h1>{{ 'COMMON.LOGIN' | translate }}</h1>
     </div>
     
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username or Email</mat-label>
+        <mat-label>{{ 'COMMON.USERNAME_EMAIL' | translate }}</mat-label>
         <input matInput formControlName="usernameOrEmail" required>
         <mat-icon matSuffix>person</mat-icon>
         <mat-error *ngIf="loginForm.get('usernameOrEmail')?.errors?.['required']">
-          Username or email is required
+          {{ 'COMMON.USERNAME_EMAIL_REQUIRED' | translate }}
         </mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'AUTH.LOGIN.PASSWORD' | translate }}</mat-label>
         <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
-          Password is required
+          {{ 'COMMON.PASSWORD_REQUIRED' | translate }}
         </mat-error>
       </mat-form-field>
       
@@ -109,10 +109,10 @@
       </div>
       
       <div class="action-buttons">
-        <button mat-stroked-button type="button" routerLink="/register">Register</button>
+        <button mat-stroked-button type="button" routerLink="/register">{{ 'COMMON.REGISTER' | translate }}</button>
         <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading">
           <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-          <span *ngIf="!loading">Login</span>
+          <span *ngIf="!loading">{{ 'COMMON.LOGIN' | translate }}</span>
         </button>
       </div>
     </form>

@@ -1,5 +1,5 @@
 <div class="cache-analytics-container">
-  <h2>Cache Analytics Dashboard</h2>
+  <h2>{{ 'CACHE_ANALYTICS.TITLE' | translate }}</h2>
 
   <!-- Info Section -->
   <div class="info-section">
@@ -7,8 +7,8 @@
       <div class="info-header" (click)="toggleInfoSection()">
         <div class="header-content">
           <mat-icon>info</mat-icon>
-          <h3 class="title">About This Page</h3>
-          <span class="subtitle">Click to learn more</span>
+          <h3 class="title">{{ 'CACHE_ANALYTICS.ABOUT_TITLE' | translate }}</h3>
+          <span class="subtitle">{{ 'CACHE_ANALYTICS.ABOUT_SUBTITLE' | translate }}</span>
         </div>
         <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
           expand_more
@@ -17,37 +17,36 @@
       <div class="info-content" [class.expanded]="infoSectionExpanded">
         <div class="content-inner">
           <p>
-            This page demonstrates <strong>Redis Cache Analytics & Kafka Event Streaming</strong> with comprehensive monitoring through our full-stack architecture:
+            {{ 'CACHE_ANALYTICS.ABOUT_DESCRIPTION' | translate }}
           </p>
           <div class="flow-diagram">
             <div class="flow-step">
               <mat-icon>web</mat-icon>
-              <span>Angular Frontend</span>
+              <span>{{ 'CACHE_ANALYTICS.FLOW_ANGULAR' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>dns</mat-icon>
-              <span>Spring Boot API</span>
+              <span>{{ 'CACHE_ANALYTICS.FLOW_SPRING' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>memory</mat-icon>
-              <span>Redis Cache</span>
+              <span>{{ 'CACHE_ANALYTICS.FLOW_REDIS' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>analytics</mat-icon>
-              <span>Kafka Analytics</span>
+              <span>{{ 'CACHE_ANALYTICS.FLOW_KAFKA' | translate }}</span>
             </div>
           </div>
           <p>
-            <strong>Under the Hood:</strong> When you access cached data (MongoDB queries, external APIs), Spring Boot's CacheService checks Redis first. 
-            Cache hits/misses, response times, and rate limiting events are streamed to Kafka topics for real-time analytics processing.
+            <strong>{{ 'CACHE_ANALYTICS.UNDER_HOOD' | translate }}</strong>
           </p>
           <div class="feature-list">
             <div class="feature-item">
               <mat-icon>speed</mat-icon>
-              <span><strong>Cache-Aside Pattern:</strong> Intelligent caching reduces database load and improves response times</span>
+              <span><strong>{{ 'CACHE_ANALYTICS.CACHE_PATTERN_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>timeline</mat-icon>

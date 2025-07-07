@@ -1,5 +1,5 @@
 <div class="page-container websocket-page">
-  <h2 class="page-title">Real-Time Chat</h2>
+  <h2 class="page-title">{{ 'WEBSOCKET.TITLE' | translate }}</h2>
   
   <!-- Info Section -->
   <div class="info-section">
@@ -7,8 +7,8 @@
         <div class="info-header" (click)="toggleInfoSection()" (keydown)="toggleInfoSection()">
         <div class="header-content">
           <mat-icon>info</mat-icon>
-          <h3 class="title">About This Page</h3>
-          <span class="subtitle">Click to learn more</span>
+          <h3 class="title">{{ 'WEBSOCKET.ABOUT_TITLE' | translate }}</h3>
+          <span class="subtitle">{{ 'WEBSOCKET.ABOUT_SUBTITLE' | translate }}</span>
         </div>
         <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
           expand_more
@@ -17,39 +17,39 @@
       <div class="info-content" [class.expanded]="infoSectionExpanded">
         <div class="content-inner">
           <p>
-            This page demonstrates <strong>Real-time WebSocket Communication</strong> using STOMP over SockJS through our full-stack architecture:
+            {{ 'WEBSOCKET.ABOUT_DESCRIPTION' | translate }}
           </p>
           <div class="flow-diagram">
             <div class="flow-step">
               <mat-icon>web</mat-icon>
-              <span>Angular Frontend</span>
+              <span>{{ 'WEBSOCKET.FLOW_ANGULAR' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>dns</mat-icon>
-              <span>Spring Boot WebSocket</span>
+              <span>{{ 'WEBSOCKET.FLOW_SPRING' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>chat</mat-icon>
-              <span>Real-time Chat</span>
+              <span>{{ 'WEBSOCKET.FLOW_CHAT' | translate }}</span>
             </div>
           </div>
           <p>
-            Chat with other connected users in real-time. The system tracks user connections and disconnections, displaying both active and recently disconnected users in the sidebar.
+            {{ 'WEBSOCKET.CHAT_DESCRIPTION' | translate }}
           </p>
           <div class="feature-list">
             <div class="feature-item">
               <mat-icon>chat_bubble</mat-icon>
-              <span><strong>Real-time Messaging:</strong> Send and receive messages instantly</span>
+              <span><strong>{{ 'WEBSOCKET.MESSAGING_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>people</mat-icon>
-              <span><strong>User Tracking:</strong> See who's online and recently disconnected</span>
+              <span><strong>{{ 'WEBSOCKET.USER_TRACKING_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>notifications</mat-icon>
-              <span><strong>System Notifications:</strong> Join/leave announcements</span>
+              <span><strong>{{ 'WEBSOCKET.SYSTEM_NOTIFICATIONS_FEATURE' | translate }}</strong></span>
             </div>
           </div>
         </div>
@@ -63,29 +63,29 @@
     <div class="users-sidebar">
       <div class="sidebar-header">
         <mat-icon>people</mat-icon>
-        <h3>Users</h3>
+        <h3>{{ 'WEBSOCKET.USERS' | translate }}</h3>
       </div>
       
       <!-- Connection Status -->
       <div class="connection-status" [class.connected]="isConnected">
         <mat-icon>{{isConnected ? 'wifi' : 'wifi_off'}}</mat-icon>
-        <span>{{isConnected ? 'Connected' : 'Disconnected'}}</span>
+        <span>{{isConnected ? ('WEBSOCKET.CONNECTED' | translate) : ('WEBSOCKET.DISCONNECTED' | translate)}}</span>
       </div>
 
       <!-- Connected Users -->
       <div class="user-section">
         <h4>
           <mat-icon>circle</mat-icon>
-          Online ({{getConnectedUsers().length}})
+          {{ 'WEBSOCKET.ONLINE' | translate }} ({{getConnectedUsers().length}})
         </h4>
         <div class="user-list">
           <div class="user-item online" *ngFor="let user of getConnectedUsers()">
             <mat-icon>person</mat-icon>
             <span class="username">{{user.username}}</span>
-            <span class="you-indicator" *ngIf="user.username === currentUser">(You)</span>
+            <span class="you-indicator" *ngIf="user.username === currentUser">({{ 'WEBSOCKET.YOU' | translate }})</span>
           </div>
           <div class="no-users" *ngIf="getConnectedUsers().length === 0">
-            No users online
+            {{ 'WEBSOCKET.NO_USERS_ONLINE' | translate }}
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
       <div class="user-section" *ngIf="getDisconnectedUsers().length > 0">
         <h4>
           <mat-icon>radio_button_unchecked</mat-icon>
-          Recently Offline ({{getDisconnectedUsers().length}})
+          {{ 'WEBSOCKET.RECENTLY_OFFLINE' | translate }} ({{getDisconnectedUsers().length}})
         </h4>
         <div class="user-list">
           <div class="user-item offline" *ngFor="let user of getDisconnectedUsers()">
@@ -142,19 +142,19 @@
 
         <div class="no-messages" *ngIf="messages.length === 0">
           <mat-icon>chat_bubble_outline</mat-icon>
-          <p>No messages yet. Start the conversation!</p>
+          <p>{{ 'WEBSOCKET.NO_MESSAGES' | translate }}</p>
         </div>
       </div>
 
       <!-- Message Input -->
       <div class="message-input-container">
         <mat-form-field class="message-input" appearance="outline">
-          <mat-label>Type your message...</mat-label>
+          <mat-label>{{ 'WEBSOCKET.TYPE_MESSAGE' | translate }}</mat-label>
           <input matInput 
                  [(ngModel)]="messageInput"
                  (keydown)="onKeyPress($event)"
                  [disabled]="!isConnected"
-                 placeholder="Press Enter to send">
+                 placeholder="{{ 'WEBSOCKET.PRESS_ENTER' | translate }}">
           <button mat-icon-button 
                   matSuffix 
                   (click)="sendMessage()"

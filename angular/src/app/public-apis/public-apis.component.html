@@ -1,13 +1,13 @@
 <div class="page-container">
-  <h2 class="page-title">Public APIs Integration Demo</h2>
+  <h2 class="page-title">{{ 'PUBLIC_APIS.TITLE' | translate }}</h2>
   
   <div class="info-section">
     <mat-card class="info-card">
       <div class="info-header" (click)="toggleInfoSection()">
         <div class="header-content">
           <mat-icon>info</mat-icon>
-          <h3 class="title">About This Page</h3>
-          <span class="subtitle">Click to learn more</span>
+          <h3 class="title">{{ 'PUBLIC_APIS.ABOUT_TITLE' | translate }}</h3>
+          <span class="subtitle">{{ 'PUBLIC_APIS.ABOUT_SUBTITLE' | translate }}</span>
         </div>
         <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
           expand_more
@@ -16,39 +16,39 @@
       <div class="info-content" [class.expanded]="infoSectionExpanded">
         <div class="content-inner">
           <p>
-            This page demonstrates the complete integration flow with <strong>3 Public REST APIs</strong> through our full-stack architecture:
+            {{ 'PUBLIC_APIS.ABOUT_DESCRIPTION' | translate }}
           </p>
           <div class="flow-diagram">
             <div class="flow-step">
               <mat-icon>web</mat-icon>
-              <span>Angular Frontend</span>
+              <span>{{ 'PUBLIC_APIS.FLOW_ANGULAR' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>dns</mat-icon>
-              <span>Spring Boot Backend</span>
+              <span>{{ 'PUBLIC_APIS.FLOW_SPRING' | translate }}</span>
             </div>
             <mat-icon class="flow-arrow">arrow_forward</mat-icon>
             <div class="flow-step">
               <mat-icon>cloud</mat-icon>
-              <span>Public REST APIs</span>
+              <span>{{ 'PUBLIC_APIS.FLOW_PUBLIC_APIS' | translate }}</span>
             </div>
           </div>
           <p>
-            The responses are fetched from external APIs, processed by our Spring Boot backend, and rendered back to the Angular UI with interactive features like collapsible sections and data clearing.
+            {{ 'PUBLIC_APIS.INTEGRATION_DESCRIPTION' | translate }}
           </p>
           <div class="feature-list">
             <div class="feature-item">
               <mat-icon>movie</mat-icon>
-              <span><strong>Disney API:</strong> Character information with films and TV shows</span>
+              <span><strong>{{ 'PUBLIC_APIS.DISNEY_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>cloud</mat-icon>
-              <span><strong>DigitalOcean Status API:</strong> Real-time service status monitoring</span>
+              <span><strong>{{ 'PUBLIC_APIS.DIGITALOCEAN_FEATURE' | translate }}</strong></span>
             </div>
             <div class="feature-item">
               <mat-icon>calendar_today</mat-icon>
-              <span><strong>UK Government API:</strong> Official bank holidays data</span>
+              <span><strong>{{ 'PUBLIC_APIS.UK_GOV_FEATURE' | translate }}</strong></span>
             </div>
           </div>
         </div>
@@ -61,12 +61,12 @@
       <div class="button-group">
         <button mat-raised-button color="primary" (click)="getDisneyCharacters()" [disabled]="loading['disneyCharacters']">
           <mat-icon>movie</mat-icon>
-          <span>Disney Characters</span>
+          <span>{{ 'PUBLIC_APIS.DISNEY_CHARACTERS' | translate }}</span>
           <mat-spinner *ngIf="loading['disneyCharacters']" diameter="20"></mat-spinner>
         </button>
         <button mat-raised-button color="warn" (click)="clearDisneyCharacters()" [disabled]="loading['disneyCharacters'] || !disneyCharactersData">
           <mat-icon>clear</mat-icon>
-          <span>Clear</span>
+          <span>{{ 'PUBLIC_APIS.CLEAR' | translate }}</span>
         </button>
       </div>
       <div *ngIf="error['disneyCharacters']" class="error-message">{{ error['disneyCharacters'] }}</div>
@@ -74,7 +74,7 @@
 
     <div class="results-section" *ngIf="disneyCharactersData">
       <div class="results-header" (click)="toggleCollapse('disneyCharacters')">
-        <h3>Disney Characters</h3>
+        <h3>{{ 'PUBLIC_APIS.DISNEY_CHARACTERS' | translate }}</h3>
         <mat-icon>{{ collapsed['disneyCharacters'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
       <div class="results-content" [class.collapsed]="collapsed['disneyCharacters']">
@@ -86,8 +86,8 @@
             </mat-card-header>
             <img mat-card-image [src]="character.imageUrl" alt="{{ character.name }}" *ngIf="character.imageUrl">
             <mat-card-content>
-              <p *ngIf="character.films?.length"><strong>Films:</strong> {{ character.films.join(', ') }}</p>
-              <p *ngIf="character.tvShows?.length"><strong>TV Shows:</strong> {{ character.tvShows.join(', ') }}</p>
+              <p *ngIf="character.films?.length"><strong>{{ 'PUBLIC_APIS.FILMS' | translate }}:</strong> {{ character.films.join(', ') }}</p>
+              <p *ngIf="character.tvShows?.length"><strong>{{ 'PUBLIC_APIS.TV_SHOWS' | translate }}:</strong> {{ character.tvShows.join(', ') }}</p>
             </mat-card-content>
           </mat-card>
         </div>
@@ -102,12 +102,12 @@
       <div class="button-group">
         <button mat-raised-button color="accent" (click)="getDigitalOceanStatus()" [disabled]="loading['digitalOceanStatus']">
           <mat-icon>cloud</mat-icon>
-          <span>Digital Ocean Status</span>
+          <span>{{ 'PUBLIC_APIS.DIGITALOCEAN_STATUS' | translate }}</span>
           <mat-spinner *ngIf="loading['digitalOceanStatus']" diameter="20"></mat-spinner>
         </button>
         <button mat-raised-button color="warn" (click)="clearDigitalOceanStatus()" [disabled]="loading['digitalOceanStatus'] || !digitalOceanStatusData">
           <mat-icon>clear</mat-icon>
-          <span>Clear</span>
+          <span>{{ 'PUBLIC_APIS.CLEAR' | translate }}</span>
         </button>
       </div>
       <div *ngIf="error['digitalOceanStatus']" class="error-message">{{ error['digitalOceanStatus'] }}</div>
@@ -115,7 +115,7 @@
 
     <div class="results-section" *ngIf="digitalOceanStatusData">
       <div class="results-header" (click)="toggleCollapse('digitalOceanStatus')">
-        <h3>Digital Ocean Status</h3>
+        <h3>{{ 'PUBLIC_APIS.DIGITALOCEAN_STATUS' | translate }}</h3>
         <mat-icon>{{ collapsed['digitalOceanStatus'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
       <div class="results-content" [class.collapsed]="collapsed['digitalOceanStatus']">
@@ -143,18 +143,18 @@
       <div class="button-group">
         <button mat-raised-button color="warn" (click)="getBankHolidays()" [disabled]="loading['bankHolidays']">
           <mat-icon>calendar_today</mat-icon>
-          <span>UK Bank Holidays</span>
+          <span>{{ 'PUBLIC_APIS.UK_HOLIDAYS' | translate }}</span>
           <mat-spinner *ngIf="loading['bankHolidays']" diameter="20"></mat-spinner>
         </button>
         <button mat-raised-button color="warn" (click)="clearBankHolidays()" [disabled]="loading['bankHolidays'] || !bankHolidaysData">
           <mat-icon>clear</mat-icon>
-          <span>Clear</span>
+          <span>{{ 'PUBLIC_APIS.CLEAR' | translate }}</span>
         </button>
       </div>
       <div *ngIf="error['bankHolidays']" class="error-message">{{ error['bankHolidays'] }}</div>
     </div>    <div class="results-section" *ngIf="bankHolidaysData">
       <div class="results-header" (click)="toggleCollapse('bankHolidays')">
-        <h3>UK Bank Holidays</h3>
+        <h3>{{ 'PUBLIC_APIS.UK_HOLIDAYS' | translate }}</h3>
         <mat-icon>{{ collapsed['bankHolidays'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
       <div class="results-content" [class.collapsed]="collapsed['bankHolidays']">
@@ -168,17 +168,17 @@
 
             <table mat-table [dataSource]="bankHolidaysData[region].events" class="mat-elevation-z8">
               <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef>Holiday</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'PUBLIC_APIS.HOLIDAY' | translate }}</th>
                 <td mat-cell *matCellDef="let event">{{ event.title }}</td>
               </ng-container>
 
               <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'PUBLIC_APIS.DATE' | translate }}</th>
                 <td mat-cell *matCellDef="let event">{{ event.date | date:'mediumDate' }}</td>
               </ng-container>
 
               <ng-container matColumnDef="notes">
-                <th mat-header-cell *matHeaderCellDef>Notes</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'PUBLIC_APIS.NOTES' | translate }}</th>
                 <td mat-cell *matCellDef="let event">{{ event.notes }}</td>
               </ng-container>
 

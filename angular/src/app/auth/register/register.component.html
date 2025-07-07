@@ -13,42 +13,42 @@
         <input matInput formControlName="username" required>
         <mat-icon matSuffix>person</mat-icon>
         <mat-error *ngIf="registerForm.get('username')?.errors?.['required']">
-          {{ 'AUTH.LOGIN.USERNAME' | translate }} is required
+          {{ 'COMMON.USERNAME_REQUIRED' | translate }}
         </mat-error>
         <mat-error *ngIf="registerForm.get('username')?.errors?.['minlength']">
-          Username must be at least 3 characters
+          {{ 'COMMON.USERNAME_MIN' | translate }}
         </mat-error>
         <mat-error *ngIf="registerForm.get('username')?.errors?.['maxlength']">
-          Username cannot exceed 50 characters
+          {{ 'COMMON.USERNAME_MAX' | translate }}
         </mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ 'AUTH.REGISTER.EMAIL' | translate }}</mat-label>
         <input matInput formControlName="email" required type="email">
         <mat-icon matSuffix>email</mat-icon>
         <mat-error *ngIf="registerForm.get('email')?.errors?.['required']">
-          Email is required
+          {{ 'COMMON.EMAIL_REQUIRED' | translate }}
         </mat-error>
         <mat-error *ngIf="registerForm.get('email')?.errors?.['email']">
-          Please enter a valid email address
+          {{ 'COMMON.EMAIL_INVALID' | translate }}
         </mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'AUTH.LOGIN.PASSWORD' | translate }}</mat-label>
         <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="registerForm.get('password')?.errors?.['required']">
-          Password is required
+          {{ 'COMMON.PASSWORD_REQUIRED' | translate }}
         </mat-error>
         <mat-error *ngIf="registerForm.get('password')?.errors?.['minlength']">
-          Password must be at least 6 characters
+          {{ 'COMMON.PASSWORD_MIN' | translate }}
         </mat-error>
         <mat-error *ngIf="registerForm.get('password')?.errors?.['maxlength']">
-          Password cannot exceed 100 characters
+          {{ 'COMMON.PASSWORD_MAX' | translate }}
         </mat-error>
       </mat-form-field>
       
@@ -57,10 +57,10 @@
       </div>
       
       <div class="action-buttons">
-        <button mat-stroked-button type="button" routerLink="/login">Back to Login</button>
+        <button mat-stroked-button type="button" routerLink="/login">{{ 'COMMON.BACK_TO_LOGIN' | translate }}</button>
         <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid || loading">
           <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-          <span *ngIf="!loading">Register</span>
+          <span *ngIf="!loading">{{ 'COMMON.REGISTER' | translate }}</span>
         </button>
       </div>
     </form>
