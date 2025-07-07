@@ -1,8 +1,12 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+
+// Translation imports
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 // Angular Material Modules
 import {MatButtonModule} from '@angular/material/button';
@@ -25,6 +29,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatMenuModule} from '@angular/material/menu';
 
 // App Components
 import {AppRoutingModule} from './app-routing.module';
@@ -33,6 +38,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {HomeComponent} from './home/home.component';
 import {HeaderComponent} from './shared/header/header.component';
+import {LanguageSwitcherComponent} from './shared/language-switcher/language-switcher.component';
 
 // Services and Interceptors
 import {AuthInterceptor} from './core/interceptors/auth.interceptor';
@@ -41,6 +47,11 @@ import { PublicApisComponent } from './public-apis/public-apis.component';
 import { WebsocketComponent } from './websocket/websocket.component';
 import { CacheAnalyticsComponent } from './cache-analytics/cache-analytics.component';
 
+// Translation loader factory
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -48,6 +59,7 @@ import { CacheAnalyticsComponent } from './cache-analytics/cache-analytics.compo
         RegisterComponent,
         HomeComponent,
         HeaderComponent,
+        LanguageSwitcherComponent,
         MongodbComponent,
         PublicApisComponent,
         WebsocketComponent,
@@ -79,7 +91,16 @@ import { CacheAnalyticsComponent } from './cache-analytics/cache-analytics.compo
         MatSlideToggleModule,
         MatTooltipModule,
         MatDividerModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatMenuModule,
+        // Translation module
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         {

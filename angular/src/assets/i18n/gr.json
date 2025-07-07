@@ -1,0 +1,44 @@
+{
+  "HEADER": {
+    "TITLE": "Spring Boot Angular Playground",
+    "HOME": "Αρχική",
+    "MONGODB": "MongoDB CRUD",
+    "PUBLIC_APIS": "Δημόσια APIs",
+    "WEBSOCKET": "WebSocket Chat",
+    "CACHE_ANALYTICS": "Αναλυτικά Cache",
+    "LOGOUT": "Αποσύνδεση",
+    "LANGUAGE": "Γλώσσα"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Έτοιμη για Παραγωγή Πιστοποίηση",
+      "SUBTITLE": "Ασφαλής ροή πιστοποίησης βασισμένη σε JWT",
+      "DESCRIPTION": "Αυτή η εφαρμογή υλοποιεί ένα σύστημα πιστοποίησης κατάλληλο για παραγωγή με JWT tokens, που διαθέτει τόσο Angular Guards όσο και Spring Boot Security.",
+      "USERNAME": "Όνομα Χρήστη",
+      "PASSWORD": "Κωδικός",
+      "SIGN_IN": "Σύνδεση",
+      "REGISTER": "Εγγραφή",
+      "FORGOT_PASSWORD": "Ξεχάσατε τον κωδικό;",
+      "NO_ACCOUNT": "Δεν έχετε λογαριασμό;",
+      "HAVE_ACCOUNT": "Έχετε ήδη λογαριασμό;"
+    },
+    "REGISTER": {
+      "TITLE": "Δημιουργία Λογαριασμού",
+      "EMAIL": "Email",
+      "CONFIRM_PASSWORD": "Επιβεβαίωση Κωδικού",
+      "CREATE_ACCOUNT": "Δημιουργία Λογαριασμού"
+    }
+  },
+  "HOME": {
+    "WELCOME": "Καλώς ήρθατε στο Spring Boot Angular Playground!",
+    "LOGGED_IN_AS": "Είστε συνδεδεμένοι ως:",
+    "EMAIL": "Email:",
+    "LOGOUT_BUTTON": "Αποσύνδεση"
+  },
+  "FEATURES": {
+    "JWT_AUTH": "JWT Πιστοποίηση: Ασφαλής πιστοποίηση χωρίς κατάσταση βασισμένη σε tokens",
+    "ROUTE_GUARDS": "Angular Route Guards: Προστασία διαδρομών και ανακατεύθυνση μη εξουσιοδοτημένων χρηστών",
+    "INTERCEPTORS": "HTTP Interceptors: Αυτόματη προσάρτηση JWT tokens στα αιτήματα",
+    "SPRING_SECURITY": "Spring Security: Πιστοποίηση και εξουσιοδότηση από την πλευρά του διακομιστή"
+  }
+}

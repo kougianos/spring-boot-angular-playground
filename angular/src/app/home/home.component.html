@@ -1,16 +1,16 @@
 <div class="page-container">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Welcome to Spring Boot Angular Playground!</mat-card-title>
+      <mat-card-title>{{ 'HOME.WELCOME' | translate }}</mat-card-title>
     </mat-card-header>
     
     <mat-card-content *ngIf="currentUser">
-      <p>You are logged in as: <strong>{{ currentUser.username }}</strong></p>
-      <p>Email: <strong>{{ currentUser.email }}</strong></p>
+      <p>{{ 'HOME.LOGGED_IN_AS' | translate }} <strong>{{ currentUser.username }}</strong></p>
+      <p>{{ 'HOME.EMAIL' | translate }} <strong>{{ currentUser.email }}</strong></p>
     </mat-card-content>
     
     <mat-card-actions>
-      <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      <button mat-raised-button color="warn" (click)="logout()">{{ 'HOME.LOGOUT_BUTTON' | translate }}</button>
     </mat-card-actions>
   </mat-card>
 </div>

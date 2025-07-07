@@ -1,0 +1,21 @@
+<div [ngClass]="context === 'auth' ? 'auth-context' : 'header-context'">
+  <button 
+    mat-button 
+    class="language-switcher"
+    [matMenuTriggerFor]="languageMenu"
+    [matTooltip]="'HEADER.LANGUAGE' | translate">
+    <span class="current-language">{{ currentLanguage.code.toUpperCase() }}</span>
+    <mat-icon>expand_more</mat-icon>
+  </button>
+
+  <mat-menu #languageMenu="matMenu">
+    <button 
+      mat-menu-item 
+      *ngFor="let language of availableLanguages"
+      (click)="setLanguage(language.code)"
+      [class.active]="language.code === currentLanguage.code">
+      <span class="language-name">{{ language.name }}</span>
+      <span class="language-code">({{ language.code.toUpperCase() }})</span>
+    </button>
+  </mat-menu>
+</div>

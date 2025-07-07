@@ -1,0 +1,44 @@
+{
+  "HEADER": {
+    "TITLE": "Spring Boot Angular Playground",
+    "HOME": "Home",
+    "MONGODB": "MongoDB CRUD",
+    "PUBLIC_APIS": "Public APIs",
+    "WEBSOCKET": "WebSocket Chat",
+    "CACHE_ANALYTICS": "Cache Analytics",
+    "LOGOUT": "Logout",
+    "LANGUAGE": "Language"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Production-Ready Authentication",
+      "SUBTITLE": "JWT-based secure authentication flow",
+      "DESCRIPTION": "This application implements a production-grade authentication system with JWT tokens, featuring both Angular Guards and Spring Boot Security.",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "SIGN_IN": "Sign In",
+      "REGISTER": "Register",
+      "FORGOT_PASSWORD": "Forgot Password?",
+      "NO_ACCOUNT": "Don't have an account?",
+      "HAVE_ACCOUNT": "Already have an account?"
+    },
+    "REGISTER": {
+      "TITLE": "Create Account",
+      "EMAIL": "Email",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "CREATE_ACCOUNT": "Create Account"
+    }
+  },
+  "HOME": {
+    "WELCOME": "Welcome to Spring Boot Angular Playground!",
+    "LOGGED_IN_AS": "You are logged in as:",
+    "EMAIL": "Email:",
+    "LOGOUT_BUTTON": "Logout"
+  },
+  "FEATURES": {
+    "JWT_AUTH": "JWT Authentication: Stateless, secure token-based authentication",
+    "ROUTE_GUARDS": "Angular Route Guards: Protect routes and redirect unauthorized users",
+    "INTERCEPTORS": "HTTP Interceptors: Automatically attach JWT tokens to requests",
+    "SPRING_SECURITY": "Spring Security: Server-side authentication and authorization"
+  }
+}

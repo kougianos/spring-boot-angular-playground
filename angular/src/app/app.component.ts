@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserInfo } from './core/services/auth.service';
+import { LanguageService } from './core/services/language.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly languageService: LanguageService
   ) {}
 
   ngOnInit(): void {

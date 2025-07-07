@@ -1,12 +1,15 @@
 <div class="container">
+  <!-- Language Switcher -->
+  <app-language-switcher context="auth"></app-language-switcher>
+  
   <!-- Authentication Info Section -->
   <div class="info-section">
     <mat-card class="info-card">
       <div class="info-header" (click)="toggleInfoSection()">
         <div class="header-content">
           <mat-icon>security</mat-icon>
-          <h3 class="title">Production-Ready Authentication</h3>
-          <span class="subtitle">JWT-based secure authentication flow</span>
+          <h3 class="title">{{ 'AUTH.LOGIN.TITLE' | translate }}</h3>
+          <span class="subtitle">{{ 'AUTH.LOGIN.SUBTITLE' | translate }}</span>
         </div>
         <mat-icon class="expand-icon" [class.expanded]="infoSectionExpanded">
           expand_more
@@ -15,7 +18,7 @@
       <div class="info-content" [class.expanded]="infoSectionExpanded">
         <div class="content-inner">
           <p>
-            This application implements a <strong>production-grade authentication system</strong> with JWT tokens, featuring both Angular Guards and Spring Boot Security.
+            {{ 'AUTH.LOGIN.DESCRIPTION' | translate }}
           </p>
           
           <div class="flow-diagram">

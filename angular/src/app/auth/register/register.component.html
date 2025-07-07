@@ -1,16 +1,19 @@
 <div class="container">
+  <!-- Language Switcher -->
+  <app-language-switcher context="auth"></app-language-switcher>
+  
   <mat-card class="auth-card">
     <div class="auth-card-header">
-      <h1>Register</h1>
+      <h1>{{ 'AUTH.REGISTER.TITLE' | translate }}</h1>
     </div>
     
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-container">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
+        <mat-label>{{ 'AUTH.LOGIN.USERNAME' | translate }}</mat-label>
         <input matInput formControlName="username" required>
         <mat-icon matSuffix>person</mat-icon>
         <mat-error *ngIf="registerForm.get('username')?.errors?.['required']">
-          Username is required
+          {{ 'AUTH.LOGIN.USERNAME' | translate }} is required
         </mat-error>
         <mat-error *ngIf="registerForm.get('username')?.errors?.['minlength']">
           Username must be at least 3 characters
