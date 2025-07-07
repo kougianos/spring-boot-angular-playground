@@ -7,14 +7,96 @@
 
   .page-title {
     margin: 0;
+    font-size: 1.5rem; // Further reduced from 1.8rem
+    font-weight: 500;
   }
 
   .spacer {
     flex: 1;
   }
   
-  button {
+  .action-button {
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    mat-icon {
+      margin: 0;
+      font-weight: 600; // Make icons bolder
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    .button-text {
+      display: inline;
+    }
+  }
+}
+
+/* Mobile styles for devices 480px and below */
+@media (max-width: 480px) {
+  .header {
+    .page-title {
+      font-size: 1.1rem; // Further reduced for mobile
+      font-weight: 500;
+    }
+    
+    .action-button {
+      min-width: 40px !important;
+      width: 40px !important;
+      height: 40px !important;
+      padding: 0 !important;
+      border-radius: 50% !important; // Make buttons round
+      margin-left: 8px;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      
+      // Override Material button padding and wrapper
+      .mat-button-wrapper,
+      .mdc-button__label {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        line-height: 1 !important;
+      }
+      
+      .button-text {
+        display: none !important; // Hide text on mobile
+      }
+      
+      mat-icon {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 22px !important;
+        width: 18px !important;
+        height: 18px !important;
+        line-height: 1 !important;
+        font-weight: 700 !important; // Even bolder on mobile
+        font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 18 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        vertical-align: middle !important;
+		left: 5px;
+      }
+      
+      // Additional Material Design overrides for perfect centering
+      &.mat-raised-button,
+      &.mat-mdc-raised-button {
+        .mat-button-wrapper,
+        .mdc-button__label {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+      }
+    }
   }
 }
 

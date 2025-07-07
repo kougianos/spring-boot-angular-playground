@@ -2,13 +2,13 @@
   <div class="header">
     <h1 class="page-title">{{ 'MONGODB.TITLE' | translate }}</h1>
     <div class="spacer"></div>
-    <button mat-raised-button color="primary" (click)="openCreateForm()">
+    <button mat-raised-button color="primary" (click)="openCreateForm()" class="action-button">
       <mat-icon>add</mat-icon>
-      {{ 'MONGODB.NEW_DOCUMENT' | translate }}
+      <span class="button-text">{{ 'MONGODB.NEW_DOCUMENT' | translate }}</span>
     </button>
-    <button mat-raised-button color="accent" (click)="loadTestDocuments()">
+    <button mat-raised-button color="accent" (click)="loadTestDocuments()" class="action-button">
       <mat-icon>refresh</mat-icon>
-      {{ 'MONGODB.REFRESH' | translate }}
+      <span class="button-text">{{ 'MONGODB.REFRESH' | translate }}</span>
     </button>
   </div>
 
