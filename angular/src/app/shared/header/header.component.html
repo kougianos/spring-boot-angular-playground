@@ -3,11 +3,26 @@
     <span class="spacer"></span>
 
     <div class="center-nav" *ngIf="currentUser">
-        <button mat-button routerLink="/home">{{ 'HEADER.HOME' | translate }}</button>
-        <button mat-button routerLink="/mongodb">{{ 'HEADER.MONGODB' | translate }}</button>
-        <button mat-button routerLink="/public-apis">{{ 'HEADER.PUBLIC_APIS' | translate }}</button>
-        <button mat-button routerLink="/websocket">{{ 'HEADER.WEBSOCKET' | translate }}</button>
-        <button mat-button routerLink="/cache-analytics">{{ 'HEADER.CACHE_ANALYTICS' | translate }}</button>
+        <button mat-button routerLink="/home">
+            <span class="full-text">{{ 'HEADER.HOME' | translate }}</span>
+            <span class="short-text">Home</span>
+        </button>
+        <button mat-button routerLink="/mongodb">
+            <span class="full-text">{{ 'HEADER.MONGODB' | translate }}</span>
+            <span class="short-text">Mongo</span>
+        </button>
+        <button mat-button routerLink="/public-apis">
+            <span class="full-text">{{ 'HEADER.PUBLIC_APIS' | translate }}</span>
+            <span class="short-text">APIs</span>
+        </button>
+        <button mat-button routerLink="/websocket">
+            <span class="full-text">{{ 'HEADER.WEBSOCKET' | translate }}</span>
+            <span class="short-text">Socket</span>
+        </button>
+        <button mat-button routerLink="/cache-analytics">
+            <span class="full-text">{{ 'HEADER.CACHE_ANALYTICS' | translate }}</span>
+            <span class="short-text">Cache</span>
+        </button>
     </div>
 
     <span class="spacer"></span>

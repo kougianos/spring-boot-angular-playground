@@ -6,6 +6,8 @@
   font-size: 0.9rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 button[mat-button] {
@@ -30,44 +32,128 @@ button[mat-button] {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  
+  // Desktop: show full text, hide short text
+  .full-text {
+    display: inline;
+  }
+  
+  .short-text {
+    display: none;
+  }
 }
 
 /* Mobile styles for devices 480px and below */
 @media (max-width: 480px) {
   .mat-toolbar {
-    padding: 0 12px;
+    padding: 0 4px; // Reduced padding to give more space
     min-height: 56px;
-
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center; // Ensure all items are vertically centered
+    
+    // Hide the title on mobile to save space
     span:first-child {
-      font-size: 1.1rem;
-      font-weight: 500;
+      display: none;
+    }
+    
+    // Enable horizontal scrolling
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
     }
   }
 
+  .spacer {
+    flex: 0 0 auto;
+    width: 12px; // Reduced spacer width
+  }
+  
   .center-nav {
     position: static;
     transform: none;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-    margin: 8px 0;
+    flex-wrap: nowrap; // Prevent wrapping to enable horizontal scroll
+    justify-content: flex-start;
+    align-items: center; // Center items vertically
+    gap: 2px; // Reduced gap
+    flex-shrink: 0;
+    height: 56px; // Match toolbar height
+    
+    // Mobile: hide full text, show short text
+    .full-text {
+      display: none;
+    }
+    
+    .short-text {
+      display: inline;
+    }
 
     button[mat-button] {
-      font-size: 0.8rem;
-      padding: 4px 8px;
-      margin: 2px;
+      font-size: 0.75rem;
+      padding: 8px 10px; // Reduced padding
+      margin: 0 1px; // Reduced margin
       min-width: auto;
+      white-space: nowrap;
+      flex-shrink: 0; // Prevent buttons from shrinking
+      height: 40px;
+      
+      // Center text vertically
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+  }
+  
+  // User info section - ensure it's fully visible
+  ng-container {
+    display: flex;
+    align-items: center;
+    gap: 3px; // Further reduced gap
+    flex-shrink: 0; // Prevent shrinking
+    height: 56px; // Match toolbar height
+    padding-right: 8px; // More padding to ensure logout button has space from edge
+    min-width: 120px; // Minimum width to ensure user section is visible
   }
 
   .username {
     font-size: 0.8rem;
-    margin: 0 8px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin: 0;
+    white-space: nowrap;
+    flex-shrink: 1; // Allow username to shrink if needed
+    display: flex;
+    align-items: center; // Center vertically
+    max-width: 60px; // Further reduced to make more room for logout
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 30px; // Minimum width for username
   }
 
   button[mat-icon-button] {
-    width: 40px;
-    height: 40px;
+    width: 36px; // Slightly smaller
+    height: 36px;
+    flex-shrink: 0; // Never allow logout button to shrink
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; // Remove any margin
+    padding: 0; // Remove any padding that might interfere
+  }
+  
+  app-language-switcher {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center; // Center the language switcher
   }
 }
