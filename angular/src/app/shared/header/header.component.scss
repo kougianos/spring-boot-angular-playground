@@ -31,3 +31,43 @@ button[mat-button] {
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* Mobile styles for devices 480px and below */
+@media (max-width: 480px) {
+  .mat-toolbar {
+    padding: 0 12px;
+    min-height: 56px;
+
+    span:first-child {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+  }
+
+  .center-nav {
+    position: static;
+    transform: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin: 8px 0;
+
+    button[mat-button] {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      margin: 2px;
+      min-width: auto;
+    }
+  }
+
+  .username {
+    font-size: 0.8rem;
+    margin: 0 8px;
+  }
+
+  button[mat-icon-button] {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -8,6 +8,7 @@
   min-height: 100vh;
   padding: 20px;
   background: #162262;
+  position: relative;
 }
 
 .auth-card {
@@ -60,16 +61,69 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
+/* Desktop and tablet styles */
+@media (min-width: 481px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .auth-card {
+    margin-top: 20px;
+  }
+  
+  .info-section {
+    margin-bottom: 40px;
+  }
+}
+
+/* Mobile styles for devices 480px and below */
+@media (max-width: 480px) {
   .container {
     padding: 10px;
+    padding-top: 70px; /* Make room for language switcher on mobile */
   }
   
   .auth-card {
     margin-top: 10px;
+    max-width: 100%;
+    
+    .auth-card-header {
+      margin-bottom: 16px;
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .form-container {
+      gap: 12px;
+      
+      // Improve touch targets for mobile
+      .mat-mdc-form-field {
+        .mat-mdc-text-field-wrapper {
+          min-height: 56px;
+        }
+        
+        .mat-mdc-form-field-input-control {
+          font-size: 16px; /* Prevent zoom on iOS */
+        }
+      }
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      
+      button {
+        width: 100%;
+        min-height: 44px; /* Better touch target */
+      }
+    }
   }
   
   .info-section {
     margin-bottom: 20px;
+    max-width: 100%;
   }
 }

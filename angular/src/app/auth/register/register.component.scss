@@ -1,1 +1,114 @@
 /* Register component specific styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: #162262;
+  position: relative;
+}
+
+.auth-card {
+  max-width: 400px;
+  width: 100%;
+  margin-top: 20px;
+  
+  .auth-card-header {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    h1 {
+      color: #3f51b5;
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 24px;
+    
+    button {
+      flex: 1;
+    }
+  }
+}
+
+/* Desktop and tablet styles */
+@media (min-width: 481px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .auth-card {
+    margin-top: 20px;
+  }
+}
+
+/* Mobile styles for devices 480px and below */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+    padding-top: 70px; /* Make room for language switcher on mobile */
+  }
+  
+  .auth-card {
+    margin-top: 10px;
+    max-width: 100%;
+    
+    .auth-card-header {
+      margin-bottom: 16px;
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .form-container {
+      gap: 12px;
+      
+      // Improve touch targets for mobile
+      .mat-mdc-form-field {
+        .mat-mdc-text-field-wrapper {
+          min-height: 56px;
+        }
+        
+        .mat-mdc-form-field-input-control {
+          font-size: 16px; /* Prevent zoom on iOS */
+        }
+      }
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      
+      button {
+        width: 100%;
+        min-height: 44px; /* Better touch target */
+      }
+    }
+  }
+}
