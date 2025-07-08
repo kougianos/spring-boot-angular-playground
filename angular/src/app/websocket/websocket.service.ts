@@ -26,7 +26,7 @@ export class WebSocketService {
   constructor(private http: HttpClient) {
     // Construct WebSocket URL based on current location
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${environment.wsUrl}`;
+    const wsUrl = `${protocol}//${window.location.host}${environment.wsUrl}`;
     
     this.client = new Client({
       brokerURL: wsUrl,
