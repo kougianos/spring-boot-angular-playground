@@ -35,7 +35,7 @@ cleanup() {
     
     # Stop Docker services
     echo "Stopping Docker services..."
-    docker compose down
+    docker-compose down
     
     echo -e "${GREEN}All services stopped.${NC}"
     exit 0

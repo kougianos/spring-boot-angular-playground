@@ -13,9 +13,21 @@
 button[mat-button] {
   margin: 0 4px;
   font-weight: 500;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  // Active navigation styling - blue text on white background
+  &.active-nav {
+    background-color: white;
+    color: #3f51b5; // Material primary blue
+    font-weight: 600;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
   }
 }
 
@@ -111,6 +123,17 @@ button[mat-button] {
       display: flex;
       align-items: center;
       justify-content: center;
+      
+      // Active navigation styling for mobile
+      &.active-nav {
+        background-color: white;
+        color: #3f51b5; // Material primary blue
+        font-weight: 600;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.9);
+        }
+      }
     }
   }
   

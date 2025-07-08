@@ -3,23 +3,23 @@
     <span class="spacer"></span>
 
     <div class="center-nav" *ngIf="currentUser">
-        <button mat-button routerLink="/home">
+        <button mat-button routerLink="/home" routerLinkActive="active-nav">
             <span class="full-text">{{ 'HEADER.HOME' | translate }}</span>
             <span class="short-text">Home</span>
         </button>
-        <button mat-button routerLink="/mongodb">
+        <button mat-button routerLink="/mongodb" routerLinkActive="active-nav">
             <span class="full-text">{{ 'HEADER.MONGODB' | translate }}</span>
             <span class="short-text">Mongo</span>
         </button>
-        <button mat-button routerLink="/public-apis">
+        <button mat-button routerLink="/public-apis" routerLinkActive="active-nav">
             <span class="full-text">{{ 'HEADER.PUBLIC_APIS' | translate }}</span>
             <span class="short-text">APIs</span>
         </button>
-        <button mat-button routerLink="/websocket">
+        <button mat-button routerLink="/websocket" routerLinkActive="active-nav">
             <span class="full-text">{{ 'HEADER.WEBSOCKET' | translate }}</span>
             <span class="short-text">Chat</span>
         </button>
-        <button mat-button routerLink="/cache-analytics">
+        <button mat-button routerLink="/cache-analytics" routerLinkActive="active-nav">
             <span class="full-text">{{ 'HEADER.CACHE_ANALYTICS' | translate }}</span>
             <span class="short-text">Cache</span>
         </button>
