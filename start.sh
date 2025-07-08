@@ -5,7 +5,14 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
+
+# Log level colors
+INFO_COLOR='\033[0;32m'      # Green for INFO
+WARN_COLOR='\033[1;33m'      # Bold Yellow for WARN  
+ERROR_COLOR='\033[1;31m'     # Bold Red for ERROR
 
 echo -e "${BLUE}Starting Spring Boot Angular Playground...${NC}"
 echo "=========================================="
@@ -78,19 +85,26 @@ echo ""
 echo -e "${BLUE}Showing combined logs (Press Ctrl+C to stop all services):${NC}"
 echo ""
 
-# Show combined logs with prefixes
+# Show combined logs with prefixes and color-coded log levels
 tail -f $ANGULAR_LOG $SPRINGBOOT_LOG | while read line; do
-    if [[ $line == "==> logs/angular.log <==" ]]; then
-        echo -e "${GREEN}[ANGULAR]${NC}"
-    elif [[ $line == "==> logs/springboot.log <==" ]]; then
-        echo -e "${BLUE}[SPRING-BOOT]${NC}"
-    elif [[ $line != "==> "* ]]; then
-        if [[ $line == *"ng serve"* ]] || [[ $line == *"Angular"* ]] || [[ $line == *"webpack"* ]]; then
-            echo -e "${GREEN}[ANGULAR]${NC} $line"
-        elif [[ $line == *"Spring"* ]] || [[ $line == *"Tomcat"* ]] || [[ $line == *"INFO"* ]]; then
-            echo -e "${BLUE}[SPRING-BOOT]${NC} $line"
-        else
-            echo "$line"
+    if [[ $line == "==> "* ]]; then
+        # Skip file separator lines from tail
+        continue
+    elif [[ $line == *"ng serve"* ]] || [[ $line == *"Angular"* ]] || [[ $line == *"webpack"* ]] || [[ $line == *"Local:"* ]] || [[ $line == *"External:"* ]]; then
+        echo -e "${GREEN}[ANGULAR]${NC} $line"
+    elif [[ $line == *"Spring"* ]] || [[ $line == *"Tomcat"* ]] || [[ $line == *"INFO"* ]] || [[ $line == *"WARN"* ]] || [[ $line == *"ERROR"* ]]; then
+        # Color-code only the log level keywords in Spring Boot logs
+        colored_line="$line"
+        if [[ $line == *"ERROR"* ]]; then
+            # Replace ERROR with colored version (handles various formats like "ERROR ", "ERROR[", etc.)
+            colored_line=$(printf '%s\n' "$line" | sed 's/\bERROR\b/\x1b[1;31mERROR\x1b[0m/g')
+        elif [[ $line == *"WARN"* ]]; then
+            colored_line=$(printf '%s\n' "$line" | sed 's/\bWARN\b/\x1b[1;33mWARN\x1b[0m/g')
+        elif [[ $line == *"INFO"* ]]; then
+            colored_line=$(printf '%s\n' "$line" | sed 's/\bINFO\b/\x1b[0;32mINFO\x1b[0m/g')
         fi
+        echo -e "${BLUE}[SPRING-BOOT]${NC} $colored_line"
+    else
+        echo "$line"
     fi
 done
