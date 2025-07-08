@@ -78,7 +78,6 @@
         <mat-icon>{{ collapsed['disneyCharacters'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
       <div class="results-content" [class.collapsed]="collapsed['disneyCharacters']">
-      <div class="results-content" [class.collapsed]="collapsed['disneyCharacters']">
         <div class="card-container">
           <mat-card *ngFor="let character of disneyCharactersData.data?.slice(0, 6)">
             <mat-card-header>
@@ -119,7 +118,6 @@
         <mat-icon>{{ collapsed['digitalOceanStatus'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
       <div class="results-content" [class.collapsed]="collapsed['digitalOceanStatus']">
-      <div class="results-content" [class.collapsed]="collapsed['digitalOceanStatus']">
         <mat-card>
           <mat-card-header>
             <mat-card-title>{{ digitalOceanStatusData.page?.name }}</mat-card-title>
@@ -152,12 +150,13 @@
         </button>
       </div>
       <div *ngIf="error['bankHolidays']" class="error-message">{{ error['bankHolidays'] }}</div>
-    </div>    <div class="results-section" *ngIf="bankHolidaysData">
+    </div>
+    
+    <div class="results-section" *ngIf="bankHolidaysData">
       <div class="results-header" (click)="toggleCollapse('bankHolidays')">
         <h3>{{ 'PUBLIC_APIS.UK_HOLIDAYS' | translate }}</h3>
         <mat-icon>{{ collapsed['bankHolidays'] ? 'expand_more' : 'expand_less' }}</mat-icon>
       </div>
-      <div class="results-content" [class.collapsed]="collapsed['bankHolidays']">
       <div class="results-content" [class.collapsed]="collapsed['bankHolidays']">
         <mat-accordion>
           <mat-expansion-panel *ngFor="let region of getRegions()">

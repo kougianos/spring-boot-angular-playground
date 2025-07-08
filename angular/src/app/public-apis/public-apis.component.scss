@@ -1,13 +1,40 @@
 @import '../shared/styles/info-section.scss';
 
+.page-container {
+  // Remove max-width and overflow-x restrictions to use global styles
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}
+
 .page-title {
   text-align: center;
   margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+  }
 }
 
 .api-section {
   margin-bottom: 30px;
   padding: 20px 0;
+  
+  @media (max-width: 768px) {
+    padding: 15px 0;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px 0;
+    margin-bottom: 15px;
+  }
 }
 
 .button-section {
@@ -22,11 +49,50 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    gap: 8px;
+    padding: 0 15px;
+  }
 }
 
 button {
   min-width: 200px;
   margin-bottom: 10px;
+  
+  @media (max-width: 768px) {
+    min-width: 140px;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    
+    span {
+      font-size: 0.85rem;
+    }
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    min-width: 120px;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    
+    span {
+      font-size: 0.75rem;
+    }
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 button mat-icon {
@@ -40,10 +106,19 @@ button mat-spinner {
 .error-message {
   color: red;
   margin-top: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 8px;
+    text-align: center;
+    word-wrap: break-word;
+  }
 }
 
 .results-section {
   margin-top: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .results-header {
@@ -72,47 +147,189 @@ button mat-spinner {
   }
 }
 
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 100%;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 mat-card {
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 }
 
 mat-card-title {
   font-size: 18px;
   font-weight: bold;
+  word-wrap: break-word;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 mat-card-content {
   margin-top: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
+  p {
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  a {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    
+    @media (max-width: 480px) {
+      word-break: break-all;
+      overflow-wrap: break-word;
+    }
+  }
 }
 
 mat-card img {
   max-height: 200px;
   object-fit: contain;
+  width: 100%;
+  height: auto;
+  
+  @media (max-width: 768px) {
+    max-height: 150px;
+  }
 }
 
 mat-divider {
   margin: 30px 0;
 }
 
-table {
+mat-accordion {
   width: 100%;
+  overflow: visible;
+  
+  .mat-expansion-panel {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+    
+    &.mat-expanded {
+      z-index: 10;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+  }
 }
 
 mat-expansion-panel {
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  
+  &.mat-expanded {
+    z-index: 10;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+  
+  .mat-expansion-panel-header {
+    @media (max-width: 768px) {
+      padding: 12px 16px;
+      
+      .mat-expansion-panel-header-title {
+        font-size: 0.9rem;
+      }
+      
+      .mat-expansion-panel-header-description {
+        font-size: 0.8rem;
+      }
+    }
+  }
+  
+  .mat-expansion-panel-content {
+    overflow: visible;
+  }
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    
+    th, td {
+      padding: 8px 4px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    
+    th, td {
+      padding: 6px 2px;
+    }
+  }
 }
 
 .results-content {
-  overflow: hidden;
+  overflow: visible;
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-  max-height: 2000px;
+  max-height: none; // Remove max-height restriction for expanded content
   opacity: 1;
-
+  
   &.collapsed {
     max-height: 0;
     opacity: 0;
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
+  
+  // Ensure tables are responsive within the content
+  .mat-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  // For mobile devices, add additional table responsiveness
+  @media (max-width: 768px) {
+    .mat-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+}
+
+// Fix for potential z-index issues with expansion panels
+.cdk-overlay-container {
+  z-index: 1000;
+}
+
+// Ensure all text content breaks properly
+.mat-card-content p,
+.mat-card-title,
+.mat-card-subtitle {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
