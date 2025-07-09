@@ -284,9 +284,9 @@ POST /api/cache/warm-up            # Manual cache warming
 
 ### WebSocket Endpoints
 ```http
-GET /api/websocket/connected-users  # Get connected users
-GET /api/websocket/connection-info  # Connection information
-GET /api/websocket/user/{username}/status # User status
+GET /api/websocket/connected-users          # Get connected users
+GET /api/websocket/connection-info          # Connection information
+GET /api/websocket/user/{username}/status   # User status
 ```
 
 ## 📁 Project Structure
@@ -312,9 +312,9 @@ GET /api/websocket/user/{username}/status # User status
 │   │   ├── security/          # Security configuration
 │   │   └── config/            # Application configuration
 │   └── pom.xml
-├── docker-compose.yml        # Infrastructure setup
-├── start.sh                  # Automated startup script
-└── README.md                 # This file
+├── docker-compose.yml         # Infrastructure setup
+├── start.sh                   # Automated startup script
+└── README.md                  # This file
 ```
 
 ---
