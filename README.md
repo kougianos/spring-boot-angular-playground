@@ -317,6 +317,64 @@ GET /api/websocket/user/{username}/status   # User status
 └── README.md                  # This file
 ```
 
+# 🚀 Production Deployment & Monitoring
+
+This project runs live on a tiny **1 GB RAM Linode instance**. To handle Spring Boot, MongoDB, Redis, and Redpanda together on such a small footprint, the stack is heavily optimized for low memory usage.
+
+---
+
+## 🛠️ Quick Troubleshooting Guide
+
+If parts of the app stop working, log into the CentOS server and use these basic commands to check what's wrong.
+
+### 1. Check Server Memory
+Make sure the server isn't running completely out of RAM or Swap space:
+```bash
+free -h
+
+```
+
+### 2. Check the Databases (Docker)
+
+Check if MongoDB, Redis, or Redpanda have crashed or stopped:
+
+```bash
+# See all containers and their status
+docker ps -a
+
+# Restart a database if it shows as "Exited"
+docker start redis
+docker start mongodb
+docker start redpanda
+
+# View recent database logs (e.g., for redis)
+docker logs redis --tail 50
+
+```
+
+### 3. Check the Backend (Spring Boot)
+
+The Java backend runs as a native system service called `playground.service`.
+
+```bash
+# View live application logs and errors
+journalctl -u playground.service -f -n 50
+
+# Restart the backend application
+sudo systemctl restart playground.service
+
+# Verify the backend is up and running
+systemctl status playground.service
+
+```
+
+---
+
+## 🛡️ RAM Safety Measures Added
+
+* **Emergency Swap:** A 4GB swap file is enabled to catch memory spikes and prevent crashes.
+* **Java RAM Limit:** The Spring Boot app is strictly locked to a **256MB** maximum heap size (`-Xmx256m`) inside its systemd config.
+
 ---
 
 <div align="center">
